@@ -22,6 +22,28 @@ class SalesController extends Controller
         return view('admin.sales.create', compact('data', 'title'));
     }
 
+    public function post(Request $request)
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'customer_id' => 'required|exists:customers,id',
+            'ket' => 'required|string|max:150',
+            'date' => 'required|date',
+            'due_date' => 'nullable|date|after_or_equal:date',
+            'price' => 'required|numeric|min:0',
+            'qty' => 'required|integer|min:1',
+            'total' => 'required|numeric|min:0',
+            'status' => 'required|in:draft,paid,overdue',
+        ]);
+
+        $validated['price'] = str_replace('.', '', $validated['price']);
+        $validated['total'] = str_replace('.', '', $validated['total']);
+
+        Sales::create($validated);
+
+        return redirect('sales')->with('success', 'Faktur penjualan berhasil dibuat.');
+    }
+
     public function update($id)
     {
         $title = "Update Faktur Penjualan";
@@ -58,5 +80,11 @@ class SalesController extends Controller
         $data->delete();
 
         return redirect()->back()->with('success', 'Data penjualan berhasil dihapus.');
+    }
+
+    public function invoice($id)
+    {
+        $data = Sales::findOrFail($id);
+        return view('admin.sales.invoice', compact('data'));
     }
 }

@@ -1,7 +1,7 @@
 <aside class="main-sidebar bg-white elevation-2">
     <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <img src="dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity: .8">
+        <span class="brand-text font-weight-bold"><strong>SIA</strong>kuntansi</span>
     </a>
 
     <div class="sidebar">
@@ -10,7 +10,7 @@
                 data-accordion="false">
                 <li class="nav-item menu-open">
                     <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-home"></i>
                         <p>
                             Dashboard
                         </p>
@@ -27,7 +27,7 @@
                 </li>
                 <li class="nav-item menu-open">
                     <a href="{{ route('supplier') }}" class="nav-link {{ Request::is('supplier') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-parachute-box"></i>
+                        <i class="nav-icon fas fa-user-tag"></i>
                         <p>
                             Supplier
                         </p>
@@ -43,7 +43,8 @@
                 </li>
                 <li class="nav-header">FAKTUR</li>
                 <li class="nav-item menu-open">
-                    <a href="{{ route('sales') }}" class="nav-link{{ Request::is('sales') ? ' active' : '' }}">
+                    <a href="{{ route('sales') }}"
+                        class="nav-link{{ Request::is(['sales', 'sales/create', 'sales/update/*']) ? ' active' : '' }}">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
                             Penjualan
@@ -51,7 +52,8 @@
                     </a>
                 </li>
                 <li class="nav-item menu-open">
-                    <a href="{{ route('purchase') }}" class="nav-link{{ Request::is('purchase') ? ' active' : '' }}">
+                    <a href="{{ route('purchase') }}"
+                        class="nav-link{{ Request::is(['purchase', 'purchase/create', 'purchase/update/*']) ? ' active' : '' }}">
                         <i class="nav-icon fas fa-receipt"></i>
                         <p>
                             Pembelian
@@ -66,6 +68,17 @@
                             Journal
                         </p>
                     </a>
+
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('entries') }}"
+                        class="nav-link{{ Request::is('journal-entries') ? ' active' : '' }}">
+                        <i class="nav-icon fas fa-swatchbook"></i>
+                        <p>
+                            Journal Entries
+                        </p>
+                    </a>
+
                 </li>
             </ul>
         </nav>

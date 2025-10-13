@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">{{ $title }}</h1>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('sales') }}">Faktur Penjualan</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('purchase') }}">Faktur Pembelian</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
@@ -23,24 +23,24 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Update Faktur Penjualan</h3>
+                            <h3 class="card-title">Update Faktur Pembelian</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('sales.updatepost', $data->id) }}" method="post"
+                        <form action="{{ route('purchase.updatepost', $data->id) }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="customer_id">Pelanggan/ Customer <code>*</code></label>
-                                            <select name="customer_id" id="customer_id" class="form-control select2bs4"
+                                            <label for="supplier_id">Supplier <code>*</code></label>
+                                            <select name="supplier_id" id="supplier_id" class="form-control select2bs4"
                                                 style="width: 100%;" required>
-                                                <option selected disabled>Pilih Pelanggan/ Customer</option>
-                                                @foreach ($customer as $customers)
-                                                    <option value="{{ $customers->id }}"
-                                                        {{ $data->customer_id == $customers->id ? 'selected' : '' }}>
-                                                        {{ $customers->name }}</option>
+                                                <option selected disabled>Pilih Supplier</option>
+                                                @foreach ($supplier as $suppliers)
+                                                    <option value="{{ $suppliers->id }}"
+                                                        {{ $data->supplier_id == $suppliers->id ? 'selected' : '' }}>
+                                                        {{ $suppliers->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('sales') }}" type="button" class="btn btn-default">Kembali</a>
+                                <a href="{{ route('purchase') }}" type="button" class="btn btn-default">Kembali</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </div>
                         </form>
