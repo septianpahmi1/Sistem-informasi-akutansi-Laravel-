@@ -4,8 +4,12 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\Reports\AruskasController;
+use App\Http\Controllers\Reports\JournalController as ReportsJournalController;
+use App\Http\Controllers\Reports\LabarugiController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('account/post', [AccountController::class, 'post'])->name('account.post');
     Route::post('account/update/{id}', [AccountController::class, 'update'])->name('account.update');
     Route::get('account/delete/{id}', [AccountController::class, 'delete'])->name('account.delete');
+    Route::get('account/data', [AccountController::class, 'getData'])->name('account.data');
 
     Route::get('supplier', [SupplierController::class, 'index'])->name('supplier');
     Route::post('supplier/post', [SupplierController::class, 'post'])->name('supplier.post');
@@ -30,6 +35,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('customer/post', [CustomerController::class, 'post'])->name('customer.post');
     Route::post('customer/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
     Route::get('customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
+
+    Route::get('mitra', [MitraController::class, 'index'])->name('mitra');
+    Route::post('mitra/post', [MitraController::class, 'post'])->name('mitra.post');
+    Route::post('mitra/update/{id}', [MitraController::class, 'update'])->name('mitra.update');
+    Route::get('mitra/delete/{id}', [MitraController::class, 'delete'])->name('mitra.delete');
 
     Route::get('sales', [SalesController::class, 'index'])->name('sales');
     Route::get('sales/create', [SalesController::class, 'create'])->name('sales.create');
@@ -56,6 +66,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('journal/detail/{id}', [JournalController::class, 'detailJournal'])->name('journal.detail');
 
     Route::get('journal-entries', [JournalController::class, 'detail'])->name('entries');
+
+    Route::get('reports/journal-umum', [ReportsJournalController::class, 'index'])->name('reportJournal');
+    Route::get('reports/journal-umum/get-data', [ReportsJournalController::class, 'getData'])->name('reportJournal.getdata');
+    Route::get('reports/laba-rugi', [LabarugiController::class, 'index'])->name('reportLaba');
+    Route::get('reports/laba-rugi/get-data', [LabarugiController::class, 'getData'])->name('reportLaba.getdata');
+    Route::get('reports/arus-kas', [AruskasController::class, 'index'])->name('reportAruskas');
+    Route::get('reports/arus-kas/get-data', [AruskasController::class, 'getData'])->name('reportAruskas.getdata');
 });
 
 // Route::middleware('auth')->group(function () {

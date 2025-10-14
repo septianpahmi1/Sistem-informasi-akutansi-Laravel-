@@ -29,26 +29,53 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">DataTable {{ $title }}</h3>
+                            <form id="filter-form" class="form-inline float-right">
+                                <div class="input-group input-group-sm">
+                                    <input type="date" name="start_date" id="start_date" class="form-control"
+                                        value="{{ request('start_date', date('Y-m-d')) }}">
+                                    <span class="mx-1">s/d</span>
+                                    <input type="date" name="end_date" id="end_date" class="form-control"
+                                        value="{{ request('end_date', date('Y-m-d')) }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-search"></i> Tampilkan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example5" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Kode</th>
                                         <th>Akun</th>
-                                        <th>Saldo</th>
-                                        <th></th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                        <th>Saldo Awal</th>
+                                        <th>Total</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($data as $item)
+                                        @php
+                                            $entries = $item->journalEntries;
+                                            $totalDebit = $entries->where('type', 'debit')->sum('total');
+                                            $totalKredit = $entries->where('type', 'credit')->sum('total');
+
+                                            $total = $totalDebit - $totalKredit;
+                                        @endphp
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->code }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ number_format($item->opening_balance, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($totalDebit, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($totalKredit, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($item->opening_balance, 0, ',', '.') }}</td>
+                                            <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
                                             <td>
                                                 <div class="btn-group btn-block">
                                                     <button type="button" class="btn btn-sm btn-warning"

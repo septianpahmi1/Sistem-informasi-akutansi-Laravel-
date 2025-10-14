@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\AccountSeeder;
 use Database\Seeders\SupplierSeeder;
+use Database\Seeders\AccountsTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            AccountSeeder::class,
+            AccountsTableSeeder::class,
             SupplierSeeder::class,
             UserSeeder::class,
         ]);

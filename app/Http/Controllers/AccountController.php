@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class AccountController extends Controller
 {
@@ -58,5 +59,50 @@ class AccountController extends Controller
         $data->opening_balance = $request->opening_balance;
         $data->save();
         return redirect()->back()->with('success', 'Akun berhasil didaftarkan.');
+    }
+
+
+    public function getData(Request $request)
+    {
+        $start = $request->input('start_date', date('Y-m-d'));
+        $end = $request->input('end_date', date('Y-m-d'));
+
+        $data = Account::with(['journalEntries' => function ($query) use ($start, $end) {
+            $query->whereBetween('created_at', [$start, $end]);
+        }])->get();
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('total_debit', function ($item) {
+                $total = $item->journalEntries->where('type', 'debit')->sum('total');
+                return 'Rp. ' . number_format($total, 0, ',', '.');
+            })
+            ->addColumn('total_credit', function ($item) {
+                $total = $item->journalEntries->where('type', 'credit')->sum('total');
+                return 'Rp. ' . number_format($total, 0, ',', '.');
+            })
+            ->addColumn('total', function ($item) {
+                $debit = $item->journalEntries->where('type', 'debit')->sum('total');
+                $credit = $item->journalEntries->where('type', 'credit')->sum('total');
+                $total = $debit - $credit;
+                return 'Rp. ' . number_format($total, 0, ',', '.');
+            })
+            ->addColumn('opening_balance', function ($item) {
+                return 'Rp. ' . number_format($item->opening_balance, 0, ',', '.');
+            })
+            ->addColumn('action', function ($item) {
+                return '
+                <div class="btn-group btn-block">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#account' . $item->id . '">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button url="' . route('account.delete', $item->id) . '" type="button" class="btn btn-sm btn-danger delete" data-id="' . $item->id . '">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            ';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

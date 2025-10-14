@@ -67,6 +67,70 @@
 <script src="../../plugins/dropzone/min/dropzone.min.js"></script>
 <!-- Filterizr-->
 <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = $('#example5').DataTable({
+            processing: true,
+            serverSide: false,
+            ajax: {
+                url: "{{ route('account.data') }}",
+                data: function(d) {
+                    d.start_date = $('#start_date').val();
+                    d.end_date = $('#end_date').val();
+                },
+                dataSrc: function(json) {
+                    console.log("JSON response:", json); // 🔍 lihat data yang diterima
+                    return json.data;
+                }
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'code',
+                    name: 'code'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'total_debit',
+                    name: 'total_debit'
+                },
+                {
+                    data: 'total_credit',
+                    name: 'total_credit'
+                },
+                {
+                    data: 'opening_balance',
+                    name: 'opening_balance'
+                },
+                {
+                    data: 'total',
+                    name: 'total'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ],
+            dom: 'Bfrtip', // Menampilkan tombol di atas tabel
+            buttons: [
+                'excel', 'pdf', 'print', 'colvis'
+            ]
+        });
+        $('#filter-form').on('submit', function(e) {
+            e.preventDefault();
+            table.ajax.reload();
+        });
+    });
+</script>
 
 <script>
     $(function() {

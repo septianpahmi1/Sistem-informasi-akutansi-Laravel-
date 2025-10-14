@@ -41,6 +41,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('mitra') }}" class="nav-link{{ Request::is('mitra') ? ' active' : '' }}">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>
+                            Investor/ Mitra
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">FAKTUR</li>
                 <li class="nav-item menu-open">
                     <a href="{{ route('sales') }}"
@@ -79,6 +87,34 @@
                         </p>
                     </a>
 
+                </li>
+                <li class="nav-header">REPORT</li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('reportJournal') }}"
+                        class="nav-link{{ Request::is('reports/journal-umum') ? ' active' : '' }}">
+                        <i class="fas fa-circle-notch"></i>
+                        <p>
+                            Journal Umum
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('reportLaba') }}"
+                        class="nav-link{{ Request::is('reports/laba-rugi') ? ' active' : '' }}">
+                        <i class="fas fa-circle-notch"></i>
+                        <p>
+                            Laba Rugi
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('reportAruskas') }}"
+                        class="nav-link{{ Request::is('reports/arus-kas') ? ' active' : '' }}">
+                        <i class="fas fa-circle-notch"></i>
+                        <p>
+                            Arus Kas
+                        </p>
+                    </a>
                 </li>
             </ul>
         </nav>

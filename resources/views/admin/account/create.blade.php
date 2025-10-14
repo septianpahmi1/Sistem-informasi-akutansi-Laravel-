@@ -41,8 +41,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="opening_balance">Saldo awal </label>
-                                <input type="text" id="opening_balance" maxlength="30" class="form-control rupiah"
-                                    name="opening_balance">
+                                <input type="text" id="opening_balance" value="0" maxlength="30"
+                                    class="form-control rupiah" name="opening_balance">
                             </div>
                         </div>
                     </div>
