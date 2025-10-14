@@ -6,7 +6,8 @@
 
 <!-- Main Footer -->
 <footer class="main-footer">
-    <strong>Copyright &copy; 2025 <a href="https://github.com/septianpahmi" target="_blank">Septian Pahmi</a>.</strong>
+    <strong>Copyright &copy; 2025 <span class="text-blue">KOPERASI CIPTA USAHA
+            SENTOSA</span>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0
@@ -25,6 +26,7 @@
 <script src="dist/js/adminlte.js"></script>
 <script src="dist/js/rupiah.js"></script>
 <script src="dist/js/number.js"></script>
+<script src="dist/js/journal-entries.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
@@ -65,19 +67,21 @@
 <script src="../../plugins/dropzone/min/dropzone.min.js"></script>
 <!-- Filterizr-->
 <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
+
 <script>
     $(function() {
         $("#example1").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
+            "ordering": false,
             "buttons": ["excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
-            "searching": false,
-            "ordering": true,
+            "searching": true,
+            "ordering": false,
             "info": true,
             "autoWidth": false,
             "responsive": true,

@@ -14,8 +14,8 @@
                     </ol>
                 </div>
                 <div class="col-sm-6">
-                    <a href="{{ route('sales.create') }}" class="btn btn-success float-sm-right" type="button">Buat
-                        Faktur Penjualan</a>
+                    <a href="{{ route('purchase.create') }}" class="btn btn-success float-sm-right" type="button">Buat
+                        Faktur Pembelian</a>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th>Number</th>
-                                        <th>Customer</th>
+                                        <th>Supplier</th>
                                         <th>Keterangan</th>
                                         <th>Tanggal</th>
                                         <th>Harga</th>
@@ -49,7 +49,7 @@
                                     @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $item->invoice_number }}</td>
-                                            <td>{{ $item->customer->name }}</td>
+                                            <td>{{ $item->supplier->name }}</td>
                                             <td>{{ $item->ket }}</td>
                                             <td>{{ Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
                                             <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
@@ -70,16 +70,16 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group btn-block">
-                                                    <a href="{{ route('sales.invoice', $item->id) }}" target="_blank"
-                                                        type="button" class="btn btn-sm btn-success">
+                                                    <a href="{{ route('purchase.invoice', $item->id) }}"
+                                                        target="_blank" type="button" class="btn btn-sm btn-success">
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
-                                                    <a href="{{ route('sales.update', $item->id) }}" type="button"
+                                                    <a href="{{ route('purchase.update', $item->id) }}" type="button"
                                                         class="btn btn-sm btn-warning">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                    <button url="{{ route('sales.delete', $item->id) }}" type="button"
-                                                        class="btn btn-sm btn-danger delete"
+                                                    <button url="{{ route('purchase.delete', $item->id) }}"
+                                                        type="button" class="btn btn-sm btn-danger delete"
                                                         data-id="{{ $item->id }}">
                                                         <i class="fas fa-trash"></i>
                                                     </button>

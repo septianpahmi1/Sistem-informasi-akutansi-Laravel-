@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Faktur Penjualan</h3>
+                            <h3 class="card-title">Buat Faktur Penjualan</h3>
                         </div>
                         <!-- /.card-header -->
                         <form action="{{ route('sales.post') }}" method="post" enctype="multipart/form-data">
@@ -66,9 +66,9 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="number">Jumlah</label>
-                                                            <input type="text" name="qty" maxlength="3"
-                                                                max="999" id="number" class="form-control"
-                                                                required />
+                                                            <input type="text" name="qty" value="1"
+                                                                min="1" maxlength="3" max="999"
+                                                                id="number" class="form-control" required />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">

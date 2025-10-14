@@ -37,9 +37,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sales/delete/{id}', [SalesController::class, 'delete'])->name('sales.delete');
     Route::get('sales/update/{id}', [SalesController::class, 'update'])->name('sales.update');
     Route::post('sales/update/post/{id}', [SalesController::class, 'updatepost'])->name('sales.updatepost');
+    Route::get('sales/invoice/{id}', [SalesController::class, 'invoice'])->name('sales.invoice');
 
     Route::get('purchase', [PurchaseController::class, 'index'])->name('purchase');
+    Route::get('purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::post('purchase/create/post', [PurchaseController::class, 'post'])->name('purchase.post');
+    Route::get('purchase/delete/{id}', [PurchaseController::class, 'delete'])->name('purchase.delete');
+    Route::get('purchase/update/{id}', [PurchaseController::class, 'update'])->name('purchase.update');
+    Route::post('purchase/update/post/{id}', [PurchaseController::class, 'updatepost'])->name('purchase.updatepost');
+    Route::get('purchase/invoice/{id}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
+
     Route::get('journal', [JournalController::class, 'index'])->name('journal');
+    Route::get('journal/create', [JournalController::class, 'create'])->name('journal.create');
+    Route::post('journal/create/post', [JournalController::class, 'post'])->name('journal.post');
+    Route::get('journal/delete/{id}', [JournalController::class, 'delete'])->name('journal.delete');
+    Route::get('journal/update/{id}', [JournalController::class, 'update'])->name('journal.update');
+    Route::post('journal/update/post/{id}', [JournalController::class, 'updatepost'])->name('journal.updatepost');
+    Route::get('journal/detail/{id}', [JournalController::class, 'detailJournal'])->name('journal.detail');
+
+    Route::get('journal-entries', [JournalController::class, 'detail'])->name('entries');
 });
 
 // Route::middleware('auth')->group(function () {

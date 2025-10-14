@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <h1 class="m-0">{{ $title }}</h1>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('sales') }}">Faktur Penjualan</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('purchase') }}">Faktur Pembelian</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
@@ -23,24 +23,21 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Update Faktur Penjualan</h3>
+                            <h3 class="card-title">Buat Faktur Pembelian</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('sales.updatepost', $data->id) }}" method="post"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('purchase.post') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="customer_id">Pelanggan/ Customer <code>*</code></label>
-                                            <select name="customer_id" id="customer_id" class="form-control select2bs4"
+                                            <label for="supplier_id">Supplier <code>*</code></label>
+                                            <select name="supplier_id" id="supplier_id" class="form-control select2bs4"
                                                 style="width: 100%;" required>
-                                                <option selected disabled>Pilih Pelanggan/ Customer</option>
-                                                @foreach ($customer as $customers)
-                                                    <option value="{{ $customers->id }}"
-                                                        {{ $data->customer_id == $customers->id ? 'selected' : '' }}>
-                                                        {{ $customers->name }}</option>
+                                                <option selected disabled>Pilih Supplier</option>
+                                                @foreach ($data as $customer)
+                                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -49,7 +46,7 @@
                                         <div class="form-group">
                                             <label for="ket">Keterangan <code>*</code></label>
                                             <input type="text" name="ket" maxlength="150" id="ket"
-                                                value="{{ old('ket', $data->ket) }}" class="form-control" required />
+                                                class="form-control" required />
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-2">
@@ -63,7 +60,6 @@
                                                         <div class="form-group">
                                                             <label for="price">Harga <code>*</code></label>
                                                             <input type="text" name="price" id="price"
-                                                                value="{{ old('price', $data->price) }}"
                                                                 class="form-control rupiah" required />
                                                         </div>
                                                     </div>
@@ -71,15 +67,14 @@
                                                         <div class="form-group">
                                                             <label for="number">Jumlah</label>
                                                             <input type="text" name="qty" maxlength="3"
-                                                                value="{{ old('qty', $data->qty) }}" max="999"
-                                                                id="number" class="form-control" required />
+                                                                max="999" id="number" value="1"
+                                                                min="1" class="form-control" required />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="total">Total <code>*</code></label>
                                                             <input type="text" name="total" id="total"
-                                                                value="{{ old('total', $data->total) }}"
                                                                 class="form-control rupiah" required readonly />
                                                         </div>
                                                     </div>
@@ -87,7 +82,6 @@
                                                         <div class="form-group">
                                                             <label for="date">Tanggal <code>*</code></label>
                                                             <input type="date" name="date" id="date"
-                                                                value="{{ old('date', $data->date) }}"
                                                                 class="form-control" required />
                                                         </div>
                                                     </div>
@@ -95,7 +89,6 @@
                                                         <div class="form-group">
                                                             <label for="due_date">Tanggal Expired</label>
                                                             <input type="date" name="due_date" id="due_date"
-                                                                value="{{ old('due_date', $data->due_date) }}"
                                                                 class="form-control" />
                                                         </div>
                                                     </div>
@@ -106,15 +99,9 @@
                                                                 class="form-control" required>
                                                                 <option value="" selected disabled>Pilih Status
                                                                 </option>
-                                                                <option value="draft"
-                                                                    {{ $data->status == 'draft' ? 'selected' : '' }}>
-                                                                    Draft</option>
-                                                                <option value="paid"
-                                                                    {{ $data->status == 'paid' ? 'selected' : '' }}>
-                                                                    Paid</option>
-                                                                <option value="overdue"
-                                                                    {{ $data->status == 'overdue' ? 'selected' : '' }}>
-                                                                    Over Due</option>
+                                                                <option value="draft">Draft</option>
+                                                                <option value="paid">Paid</option>
+                                                                <option value="overdue">Over Due</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -126,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('sales') }}" type="button" class="btn btn-default">Kembali</a>
+                                <a href="{{ route('purchase') }}" type="button" class="btn btn-default">Kembali</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </div>
                         </form>
