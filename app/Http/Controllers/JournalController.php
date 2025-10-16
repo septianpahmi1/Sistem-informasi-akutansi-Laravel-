@@ -19,7 +19,7 @@ class JournalController extends Controller
 
     public function detail()
     {
-        $data = Journal::orderByDesc('created_at')->get();
+        $data = Journal::orderByDesc('date')->get();
         $debitTotal = JournalEntry::where('type', 'debit')->sum('total');
         $creditTotal = JournalEntry::where('type', 'credit')->sum('total');
         $title = "Daftar Journal";
@@ -66,9 +66,11 @@ class JournalController extends Controller
             JournalEntry::create([
                 'journal_id' => $journal->id,
                 'account_id' => $accountId,
+                'date' => $journal->date,
                 'type' => $request->type[$index],
                 'price' => str_replace(['Rp', '.', ' '], '', $request->price[$index]),
                 'qty' => $request->qty[$index],
+                'unit' => $request->unit[$index],
                 'total' => str_replace(['Rp', '.', ' '], '', $request->total[$index]),
             ]);
         }
@@ -104,9 +106,11 @@ class JournalController extends Controller
             JournalEntry::create([
                 'journal_id' => $journal->id,
                 'account_id' => $accountId,
+                'date' => $journal->date,
                 'type'       => $request->type[$key],
                 'price'      => $request->price[$key],
                 'qty'        => $request->qty[$key],
+                'qty'        => $request->unit[$key],
                 'total'      => $request->total[$key],
             ]);
         }
@@ -118,5 +122,25 @@ class JournalController extends Controller
         $data = Journal::findOrFail($id);
         $data->delete();
         return redirect()->back()->with('success', 'Data penjualan berhasil dihapus.');
+    }
+
+    public function getData(Request $request)
+    {
+        $startDate = $request->input('start_date', now()->startOfMonth()->toDateString());
+        $endDate = $request->input('end_date', now()->endOfMonth()->toDateString());
+
+        $data = \App\Models\Journal::with('entries.account')
+            ->whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date', 'asc')
+            ->get();
+
+        if ($request->ajax()) {
+            return view('admin.journal.entries._table', compact('data'))->render();
+        }
+
+        return view('admin.journal.entries.index', [
+            'title' => 'Jurnal Umum',
+            'data' => $data,
+        ]);
     }
 }

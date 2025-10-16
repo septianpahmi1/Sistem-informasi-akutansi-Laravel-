@@ -65,7 +65,9 @@ class LabarugiController extends Controller
             ])->values()->toArray();
 
         $investors = investor::all();
-
+        if ($investors == null) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
+        }
         return view('admin.reports.printable.laba', [
             'companyName' => 'KOPERASI CIPTA USAHA SENTOSA',
             'companyAddress' => 'Jl. Pd. Bambu Kuning No.8, RT.3/RW.4, Bojong Baru, Kecamatan Bojonggede, Kabupaten Bogor, Jawa Barat 16920',

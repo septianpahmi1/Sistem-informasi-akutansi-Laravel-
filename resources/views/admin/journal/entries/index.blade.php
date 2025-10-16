@@ -49,6 +49,21 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">DataTable {{ $title }}</h3>
+                            <form id="filter-journal" class="form-inline float-right">
+                                <div class="input-group input-group-sm">
+                                    <input type="date" name="start_date" id="start_date" class="form-control"
+                                        value="{{ request('start_date', now()->startOfMonth()->toDateString()) }}">
+                                    <span class="mx-1">s/d</span>
+                                    <input type="date" name="end_date" id="end_date" class="form-control"
+                                        value="{{ request('end_date', now()->endOfMonth()->toDateString()) }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-search"></i> Tampilkan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -65,50 +80,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $journal)
-                                        @php
-                                            $entries = $journal->entries;
-                                            $totalDebit = $entries->where('type', 'debit')->sum('total');
-                                            $totalKredit = $entries->where('type', 'credit')->sum('total');
-                                        @endphp
 
-                                        @foreach ($entries as $index => $entry)
-                                            <tr>
-                                                @if ($index === 0)
-                                                    <td>{{ $loop->parent->iteration }}</td>
-                                                    <td>{{ $journal->invoice_number }}</td>
-                                                    <td>{{ $journal->description }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($journal->date)->format('d/m/Y') }}
-                                                    </td>
-                                                @else
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                @endif
-
-                                                <td>{{ $entry->account->name ?? '-' }}</td>
-                                                <td>
-                                                    {{ $entry->type === 'debit' ? 'Rp. ' . number_format($entry->total, 0, ',', '.') : 'Rp. 0' }}
-                                                </td>
-                                                <td>
-                                                    {{ $entry->type === 'credit' ? 'Rp. ' . number_format($entry->total, 0, ',', '.') : 'Rp. 0' }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                        {{-- Total hanya sekali per jurnal --}}
-                                        <tr class="bg-light font-weight-bold">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong>Total</strong></td>
-                                            <td><strong>Rp. {{ number_format($totalDebit, 0, ',', '.') }}</strong></td>
-                                            <td><strong>Rp. {{ number_format($totalKredit, 0, ',', '.') }}</strong>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @include('admin.journal.entries._table')
                                 </tbody>
                             </table>
                         </div>

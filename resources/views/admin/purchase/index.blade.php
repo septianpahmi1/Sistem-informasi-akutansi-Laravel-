@@ -53,7 +53,7 @@
                                             <td>{{ $item->ket }}</td>
                                             <td>{{ Carbon\Carbon::parse($item->date)->format('d/m/Y') }}</td>
                                             <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
-                                            <td>{{ $item->qty }}</td>
+                                            <td>{{ $item->qty }} {{ $item->unit }}</td>
                                             <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
                                             <td>
                                                 @if ($item->status == 'draft')

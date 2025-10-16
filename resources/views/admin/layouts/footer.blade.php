@@ -131,7 +131,30 @@
         });
     });
 </script>
+<script>
+    $('#filter-journal').on('submit', function(e) {
+        e.preventDefault();
 
+        $.ajax({
+            url: "{{ route('entries.getData') }}",
+            type: "GET",
+            data: {
+                start_date: $('#start_date').val(),
+                end_date: $('#end_date').val(),
+            },
+            beforeSend: function() {
+                // opsional: tambahkan indikator loading
+                $('tbody').html('<tr><td colspan="7" class="text-center">Loading...</td></tr>');
+            },
+            success: function(response) {
+                $('table#example1 tbody').html(response);
+            },
+            error: function() {
+                alert('Terjadi kesalahan saat memuat data.');
+            }
+        });
+    });
+</script>
 <script>
     $(function() {
         $("#example1").DataTable({

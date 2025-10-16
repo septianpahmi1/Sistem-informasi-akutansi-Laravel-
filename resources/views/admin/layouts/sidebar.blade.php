@@ -83,13 +83,13 @@
                         class="nav-link{{ Request::is('journal-entries') ? ' active' : '' }}">
                         <i class="nav-icon fas fa-swatchbook"></i>
                         <p>
-                            Journal Entries
+                            Daftar Journal
                         </p>
                     </a>
 
                 </li>
                 <li class="nav-header">REPORT</li>
-                <li class="nav-item menu-open">
+                {{-- <li class="nav-item menu-open">
                     <a href="{{ route('reportJournal') }}"
                         class="nav-link{{ Request::is('reports/journal-umum') ? ' active' : '' }}">
                         <i class="fas fa-circle-notch"></i>
@@ -97,7 +97,7 @@
                             Journal Umum
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item menu-open">
                     <a href="{{ route('reportLaba') }}"
                         class="nav-link{{ Request::is('reports/laba-rugi') ? ' active' : '' }}">

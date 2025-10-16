@@ -12,6 +12,7 @@ class Purchase extends Model
         'date',
         'due_date',
         'qty',
+        'unit',
         'price',
         'total',
         'ket',

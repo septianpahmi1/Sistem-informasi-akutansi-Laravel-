@@ -81,7 +81,7 @@
                                 <td>1</td>
                                 <td>{{ $data->ket }}</td>
                                 <td>Rp {{ number_format($data->price, 0, '.', '.') }}</td>
-                                <td>{{ $data->qty }}</td>
+                                <td>{{ $data->qty }} {{ $data->unit }}</td>
                                 <td>Rp {{ number_format($data->discount, 0, '.', '.') ?? '-' }}</td>
                                 <td>Rp {{ number_format($data->total, 0, '.', '.') }}</td>
                             </tr>

@@ -15,7 +15,7 @@ use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.loginn');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('journal/detail/{id}', [JournalController::class, 'detailJournal'])->name('journal.detail');
 
     Route::get('journal-entries', [JournalController::class, 'detail'])->name('entries');
+    Route::get('journal-entries/get-data', [JournalController::class, 'getData'])->name('entries.getData');
 
     Route::get('reports/journal-umum', [ReportsJournalController::class, 'index'])->name('reportJournal');
     Route::get('reports/journal-umum/get-data', [ReportsJournalController::class, 'getData'])->name('reportJournal.getdata');

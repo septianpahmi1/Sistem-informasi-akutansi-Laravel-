@@ -101,12 +101,48 @@
                                                                         class="form-control rupiah" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label>Jumlah</label>
                                                                     <input type="text" name="qty[]"
                                                                         value="{{ $entry->qty }}" maxlength="3"
                                                                         class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="unit">Satuan <code>*</code></label>
+                                                                    <select name="unit[]" id="unit"
+                                                                        class="form-control" required>
+                                                                        <option value="Pcs"
+                                                                            {{ $data->status == 'Pcs' ? 'selected' : '' }}>
+                                                                            Pcs
+                                                                        </option>
+                                                                        <option value="Unit"
+                                                                            {{ $data->status == 'Unit' ? 'selected' : '' }}>
+                                                                            Unit</option>
+                                                                        <option value="Buah"
+                                                                            {{ $data->status == 'Buah' ? 'selected' : '' }}>
+                                                                            Buah</option>
+                                                                        <option value="Lusin"
+                                                                            {{ $data->status == 'Lusin' ? 'selected' : '' }}>
+                                                                            Lusin</option>
+                                                                        <option value="Gram"
+                                                                            {{ $data->status == 'Gram' ? 'selected' : '' }}>
+                                                                            Gram</option>
+                                                                        <option value="Kg"
+                                                                            {{ $data->status == 'Kg' ? 'selected' : '' }}>
+                                                                            Kg
+                                                                        </option>
+                                                                        <option value="Box"
+                                                                            {{ $data->status == 'Box' ? 'selected' : '' }}>
+                                                                            Box
+                                                                        </option>
+                                                                        <option value="Dus"
+                                                                            {{ $data->status == 'Dus' ? 'selected' : '' }}>
+                                                                            Dus
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">

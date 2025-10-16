@@ -32,6 +32,7 @@ class SalesController extends Controller
             'due_date' => 'nullable|date|after_or_equal:date',
             'price' => 'required|numeric|min:0',
             'qty' => 'required|integer|min:1',
+            'unit' => 'required|in:Pcs,Unit,Buah,Gram,Kg,Dus,Box,Lusin,Pack',
             'total' => 'required|numeric|min:0',
             'status' => 'required|in:draft,paid,overdue',
         ]);
@@ -61,6 +62,7 @@ class SalesController extends Controller
             'due_date' => 'nullable|date|after_or_equal:date',
             'price' => 'required|numeric|min:0',
             'qty' => 'required|integer|min:1',
+            'unit' => 'required|in:Pcs,Unit,Buah,Gram,Kg,Dus,Box,Lusin,Pack',
             'total' => 'required|numeric|min:0',
             'status' => 'required|in:draft,paid,overdue',
         ]);

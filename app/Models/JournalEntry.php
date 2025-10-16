@@ -11,8 +11,10 @@ class JournalEntry extends Model
         'account_id',
         'type',   // debit atau credit
         'qty',
+        'unit',
         'price',
         'total',
+        'date',
         'journalable_id',
         'journalable_type',
     ];

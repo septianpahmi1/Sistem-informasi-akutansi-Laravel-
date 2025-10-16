@@ -63,12 +63,28 @@
                                                                 class="form-control rupiah" required />
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-2">
                                                         <div class="form-group">
-                                                            <label for="number">Jumlah</label>
+                                                            <label for="number">Jumlah <code>*</code></label>
                                                             <input type="text" name="qty" value="1"
-                                                                min="1" maxlength="3" max="999"
+                                                                min="1" maxlength="9" max="999999999"
                                                                 id="number" class="form-control" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label for="unit">Satuan <code>*</code></label>
+                                                            <select name="unit" id="unit" class="form-control"
+                                                                required>
+                                                                <option value="Pcs">Pcs</option>
+                                                                <option value="Unit">Unit</option>
+                                                                <option value="Buah">Buah</option>
+                                                                <option value="Lusin">Lusin</option>
+                                                                <option value="Gram">Gram</option>
+                                                                <option value="Kg">Kg</option>
+                                                                <option value="Box">Box</option>
+                                                                <option value="Dus">Dus</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
