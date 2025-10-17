@@ -67,6 +67,7 @@
 <script src="../../plugins/dropzone/min/dropzone.min.js"></script>
 <!-- Filterizr-->
 <script src="../plugins/filterizr/jquery.filterizr.min.js"></script>
+
 <script>
     $(document).ready(function() {
         var table = $('#example5').DataTable({

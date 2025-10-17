@@ -12,6 +12,7 @@ use App\Http\Controllers\Reports\JournalController as ReportsJournalController;
 use App\Http\Controllers\Reports\LabarugiController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +20,11 @@ Route::get('/', function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('users', [UserController::class, 'index'])->name('users');
+    Route::post('users/post', [UserController::class, 'post'])->name('users.post');
+    Route::post('users/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::get('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
 
     Route::get('account', [AccountController::class, 'index'])->name('account');
     Route::post('account/post', [AccountController::class, 'post'])->name('account.post');

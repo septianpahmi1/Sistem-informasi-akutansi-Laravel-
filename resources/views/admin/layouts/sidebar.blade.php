@@ -16,6 +16,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-header">USER MANAGEMENT</li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('users') }}" class="nav-link {{ Request::is('users') ? ' active' : '' }}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Pengguna
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">MASTER DATA</li>
                 <li class="nav-item menu-open">
                     <a href="{{ route('account') }}" class="nav-link {{ Request::is('account') ? ' active' : '' }}">

@@ -77,33 +77,9 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <!-- LINE CHART -->
                     <div class="card card-info">
-                        <div class="card-header">
-                            <h3 class="card-title">Chart</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart">
-                                <canvas id="lineChart"
-                                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <!-- LINE CHART -->
-                    <div class="card card-success">
                         <div class="card-header">
                             <h3 class="card-title">Chart</h3>
 
@@ -132,3 +108,67 @@
 </div>
 
 @include('admin.layouts.footer')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('lineChart').getContext('2d');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($months) !!},
+                datasets: [{
+                        label: 'Debit',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        data: {!! json_encode($debits) !!}
+                    },
+                    {
+                        label: 'Kredit',
+                        backgroundColor: 'rgba(210,214,222,1)',
+                        data: {!! json_encode($credits) !!}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                // ---- Untuk Chart.js v2 ----
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            // ✅ Format angka ke Rupiah di sumbu Y
+                            callback: function(value, index, values) {
+                                return 'Rp ' + value.toString().replace(
+                                    /\B(?=(\d{3})+(?!\d))/g, ".");
+                            }
+                        }
+                    }]
+                },
+
+                // ---- Untuk Chart.js v3+ ----
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                let value = context.parsed.y !== undefined ? context.parsed.y :
+                                    context.yLabel;
+                                if (label) label += ': ';
+                                return label + 'Rp ' + value.toString().replace(
+                                    /\B(?=(\d{3})+(?!\d))/g, ".");
+                            }
+                        }
+                    },
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
