@@ -187,10 +187,11 @@
 
         {{-- Laba Kotor --}}
         @php
-            $grossProfit =
-                ($totalRevenues ?? array_sum(array_column($revenues ?? [], 'amount'))) -
-                ($totalCogs ?? array_sum(array_column($cogs ?? [], 'amount')));
+            $totalRevenues = collect($revenues ?? [])->sum('amount');
+            $totalCogs = collect($cogs ?? [])->sum('amount');
+            $grossProfit = $totalRevenues - $totalCogs;
         @endphp
+
         <div class="row">
             <div class="col-12">
                 <table class="table table-noborder w-100">
@@ -299,13 +300,17 @@
 
         {{-- Laba Bersih --}}
         @php
-            $netProfit = $operatingIncome + $totalNonOp;
-            foreach ($investors as $inv) {
-                $profitDistribution[] = [
-                    'name' => $inv->name,
-                    'percentage' => $inv->percentage,
-                    'amount' => round($netProfit * ($inv->percentage / 100)),
-                ];
+            $netProfit = ($operatingIncome ?? 0) + ($totalNonOp ?? 0);
+            $profitDistribution = [];
+
+            if (!empty($investors) && count($investors) > 0) {
+                foreach ($investors as $inv) {
+                    $profitDistribution[] = [
+                        'name' => $inv->name,
+                        'percentage' => $inv->percentage,
+                        'amount' => round($netProfit * ($inv->percentage / 100)),
+                    ];
+                }
             }
         @endphp
         <div class="row">
@@ -322,33 +327,36 @@
             </div>
         </div>
         {{-- Pembagian Laba Bersih ke Investor --}}
-        <div class="row mt-2">
-            <div class="col-12">
-                <div class="section-title">Pembagian Laba Bersih ke Investor</div>
-                <table class="table table-noborder table-striped">
-                    <thead>
-                        <tr>
-                            <th>Investor</th>
-                            <th>Persentase</th>
-                            <th class="amount">Jumlah</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($profitDistribution as $dist)
+        @if (!empty($profitDistribution))
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="section-title">Pembagian Laba Bersih ke Investor</div>
+                    <table class="table table-noborder table-striped">
+                        <thead>
                             <tr>
-                                <td>{{ $dist['name'] }}</td>
-                                <td>{{ $dist['percentage'] }}%</td>
-                                <td class="amount">{{ rp($dist['amount']) }}</td>
+                                <th>Investor</th>
+                                <th>Persentase</th>
+                                <th class="amount">Jumlah</th>
                             </tr>
-                        @endforeach
-                        <tr class="subtotal">
-                            <td colspan="2">Total</td>
-                            <td class="amount">{{ rp(array_sum(array_column($profitDistribution, 'amount'))) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($profitDistribution as $dist)
+                                <tr>
+                                    <td>{{ $dist['name'] }}</td>
+                                    <td>{{ $dist['percentage'] }}%</td>
+                                    <td class="amount">{{ rp($dist['amount']) }}</td>
+                                </tr>
+                            @endforeach
+                            <tr class="subtotal">
+                                <td colspan="2">Total</td>
+                                <td class="amount">{{ rp(array_sum(array_column($profitDistribution, 'amount'))) }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        @endif
 
         <div class="mt-3 no-print">
             <button class="btn btn-primary" onclick="window.print()">Print</button>

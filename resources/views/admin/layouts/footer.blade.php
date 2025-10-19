@@ -80,7 +80,7 @@
                     d.end_date = $('#end_date').val();
                 },
                 dataSrc: function(json) {
-                    console.log("JSON response:", json); // 🔍 lihat data yang diterima
+                    console.log("JSON response:", json);
                     return json.data;
                 }
             },
@@ -118,7 +118,7 @@
                     data: 'action',
                     name: 'action',
                     orderable: false,
-                    searchable: false
+                    searchable: false,
                 },
             ],
             dom: 'Bfrtip', // Menampilkan tombol di atas tabel
@@ -154,6 +154,18 @@
                 alert('Terjadi kesalahan saat memuat data.');
             }
         });
+    });
+</script>
+<script>
+    $(function() {
+        $("#entries1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "ordering": false,
+            "paging": false,
+            "buttons": ["excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#entries1_wrapper .col-md-6:eq(0)');
     });
 </script>
 <script>

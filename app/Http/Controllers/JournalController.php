@@ -36,7 +36,8 @@ class JournalController extends Controller
     public function create()
     {
         $title = "Buat Journal Baru";
-        $akun = Account::all();
+        $akun = Account::orderBy('code', 'asc')
+            ->get();
         return view('admin.journal.create', compact('akun', 'title'));
     }
 
@@ -82,7 +83,8 @@ class JournalController extends Controller
     {
         $title = "Update Journal";
         $data = Journal::find($id);
-        $akun = Account::all();
+        $akun = Account::orderBy('code', 'asc')
+            ->get();
         return view('admin.journal.update', compact('data', 'akun', 'title'));
     }
 

@@ -37,14 +37,17 @@ class LabarugiController extends Controller
         $revenues = $entries->filter(fn($e) => $e->account->type === 'income')
             ->map(fn($e) => [
                 'name' => $e->account->name,
-                'amount' => $e->type === 'debit' ? -$e->total : $e->total, // pendapatan kredit bertambah
+                'amount' => $e->type === 'debit' ? -$e->total : $e->total,
             ])->values()->toArray();
 
-        $cogs = $entries->filter(fn($e) => $e->account->type === 'expense' && str_contains(strtolower($e->account->name), 'pokok'))
-            ->map(fn($e) => [
-                'name' => $e->account->name,
-                'amount' => $e->type === 'debit' ? $e->total : -$e->total,
-            ])->values()->toArray();
+        $cogs = $entries->filter(
+            fn($e) =>
+            str_contains(strtolower($e->account->name), 'pokok') ||
+                str_contains(strtolower($e->account->name), 'harga pokok')
+        )->map(fn($e) => [
+            'name' => $e->account->name,
+            'amount' => $e->type === 'debit' ? $e->total : -$e->total,
+        ])->values()->toArray();
 
         $operationalExpenses = $entries->filter(fn($e) => $e->account->type === 'expense' && !str_contains(strtolower($e->account->name), 'pokok'))
             ->map(fn($e) => [

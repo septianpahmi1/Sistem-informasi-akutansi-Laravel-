@@ -70,8 +70,8 @@
                                                     <div class="col-md-2">
                                                         <div class="form-group">
                                                             <label for="number">Jumlah</label>
-                                                            <input type="text" name="qty" maxlength="3"
-                                                                value="{{ old('qty', $data->qty) }}" max="999"
+                                                            <input type="text" name="qty" maxlength="5"
+                                                                value="{{ old('qty', $data->qty) }}" max="99999"
                                                                 id="number" class="form-control" required />
                                                         </div>
                                                     </div>

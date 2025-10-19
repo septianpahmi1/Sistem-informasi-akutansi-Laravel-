@@ -58,6 +58,16 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-header">INVENTORY</li>
+                <li class="nav-item menu-open">
+                    <a href="{{ route('inventory') }}"
+                        class="nav-link{{ Request::is(['inventory']) ? ' active' : '' }}">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Persediaan
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">FAKTUR</li>
                 <li class="nav-item menu-open">
                     <a href="{{ route('sales') }}"

@@ -16,8 +16,8 @@ class DashboardController extends Controller
         $title = "Dashboard";
         $debitTotal = JournalEntry::where('type', 'debit')->sum('total');
         $creditTotal = JournalEntry::where('type', 'credit')->sum('total');
-        $salesTotal = Sales::where('status', 'paid')->sum('total');
-        $purchaseTotal = Purchase::where('status', 'paid')->sum('total');
+        $salesTotal = Sales::sum('total');
+        $purchaseTotal = Purchase::sum('total');
 
         $chartData = DB::table('journal_entries')
             ->select(
