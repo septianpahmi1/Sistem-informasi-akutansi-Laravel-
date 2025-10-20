@@ -165,18 +165,11 @@
         {{-- Beban Pokok Penjualan --}}
         <div class="row">
             <div class="col-12">
-                <div class="section-title">BEBAN POKOK PENJUALAN</div>
+                <div class="section-title">HARGA POKOK PENJUALAN</div>
                 <table class="table table-noborder table-striped w-100">
                     <tbody>
-                        @foreach ($cogsGrouped as $name => $cogs)
-                            <tr>
-                                <td>{{ $name }}</td>
-                                <td class="amount">{{ rp($cogs) }}</td>
-                            </tr>
-                        @endforeach
-
                         <tr class="subtotal">
-                            <td>Jumlah Beban Pokok Penjualan</td>
+                            <td>Jumlah Harga Pokok Penjualan</td>
                             <td class="amount">{{ rp(array_sum($cogsGrouped)) }}
                             </td>
                         </tr>
