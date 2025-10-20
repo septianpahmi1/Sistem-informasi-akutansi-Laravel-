@@ -13,11 +13,13 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
+                @if(Auth::user()->role == 'Admin')
                 <div class="col-sm-6">
                     <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
                         data-target="#mitra">Buat Mitra Baru</button>
                 </div>
                 @extends('admin.mitra.create')
+                @endif
             </div>
         </div>
     </div>
@@ -38,7 +40,9 @@
                                         <th>#</th>
                                         <th>Nama</th>
                                         <th>Persentasi (%)</th>
+                                        @if(Auth::user()->role == 'Admin')
                                         <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,6 +51,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->percentage ?? '-' }} %</td>
+                                            @if(Auth::user()->role == 'Admin')
                                             <td>
                                                 <div class="btn-group btn-block">
                                                     <button type="button" class="btn btn-sm btn-warning"
@@ -60,6 +65,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     @extends('admin.mitra.update')

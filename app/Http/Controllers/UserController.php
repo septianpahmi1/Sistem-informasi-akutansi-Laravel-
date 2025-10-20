@@ -32,7 +32,7 @@ class UserController extends Controller
             'name' => 'required|string|max:60',
             'email' => 'required|email',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:Admin,Bendahara',
+            'role' => 'required|in:Super Admin,Owner,Admin,Bendahara',
         ]);
 
         $emailExist = User::where('email', $request->email)->exists();
@@ -56,7 +56,7 @@ class UserController extends Controller
             'name' => 'required|string|max:60',
             'email' => 'required|email',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:Admin,Bendahara',
+            'role' => 'required|in:Super Admin,Owner,Admin,Bendahara',
         ]);
 
         $data = User::find($id);

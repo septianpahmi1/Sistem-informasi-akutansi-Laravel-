@@ -13,10 +13,12 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
+                @if(Auth::user()->role == 'Admin')
                 <div class="col-sm-6">
                     <a href="{{ route('journal.create') }}" class="btn btn-success float-sm-right" type="button">Buat
                         Journal Baru</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -38,7 +40,9 @@
                                         <th>Number</th>
                                         <th>Ket</th>
                                         <th>Tanggal</th>
+                                        @if(Auth::user()->role == 'Admin')
                                         <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +53,7 @@
                                             <td>{{ $journal->description }}</td>
                                             <td>{{ \Carbon\Carbon::parse($journal->date)->format('d/m/Y') }}
                                             </td>
+                                            @if(Auth::user()->role == 'Admin')
                                             <td>
                                                 <div class="btn-group btn-block">
                                                     <a href="{{ route('journal.detail', $journal->id) }}" type="button"
@@ -66,6 +71,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

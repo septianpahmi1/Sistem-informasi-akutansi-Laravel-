@@ -16,7 +16,7 @@
                         </p>
                     </a>
                 </li>
-                @if (Auth::user()->role == 'Admin')
+                @if (Auth::user()->role == 'Super Admin')
                     <li class="nav-header">USER MANAGEMENT</li>
                     <li class="nav-item menu-open">
                         <a href="{{ route('users') }}" class="nav-link {{ Request::is('users') ? ' active' : '' }}">
@@ -27,7 +27,7 @@
                         </a>
                     </li>
                 @endif
-                @if (Auth::user()->role == 'Bendahara')
+                @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Bendahara' || Auth::user()->role == 'Owner')
                     <li class="nav-header">MASTER DATA</li>
                     <li class="nav-item menu-open">
                         <a href="{{ route('account') }}" class="nav-link {{ Request::is('account') ? ' active' : '' }}">
@@ -114,6 +114,7 @@
 
                     </li>
                 @endif
+                @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Owner')
                 <li class="nav-header">REPORT</li>
                 {{-- <li class="nav-item menu-open">
                     <a href="{{ route('reportJournal') }}"
@@ -142,6 +143,7 @@
                         </p>
                     </a>
                 </li>
+                @endif
             </ul>
         </nav>
     </div>

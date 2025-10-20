@@ -13,10 +13,12 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
+                @if(Auth::user()->role == 'Admin')
                 <div class="col-sm-6">
                     <a href="{{ route('inventory.create') }}" class="btn btn-success float-sm-right" type="button">Buat
                         Persediaan Baru</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -54,7 +56,9 @@
                                         <th colspan="3">Masuk</th>
                                         <th colspan="3">Keluar</th>
                                         <th colspan="3">Saldo Akhir</th>
+                                        @if(Auth::user()->role == 'Admin')
                                         <th rowspan="2">Aksi</th>
+                                        @endif
                                     </tr>
                                     <tr>
                                         {{-- Masuk --}}

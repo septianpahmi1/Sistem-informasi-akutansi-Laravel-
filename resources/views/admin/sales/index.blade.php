@@ -13,10 +13,12 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
+                @if(Auth::user()->role == 'Admin')
                 <div class="col-sm-6">
                     <a href="{{ route('sales.create') }}" class="btn btn-success float-sm-right" type="button">Buat
                         Faktur Penjualan</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -42,7 +44,9 @@
                                         <th>Qty</th>
                                         <th>Total</th>
                                         <th>Status</th>
+                                        @if(Auth::user()->role == 'Admin')
                                         <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,6 +72,7 @@
                                                         Due</button>
                                                 @endif
                                             </td>
+                                            @if(Auth::user()->role == 'Admin')
                                             <td>
                                                 <div class="btn-group btn-block">
                                                     <a href="{{ route('sales.invoice', $item->id) }}" target="_blank"
@@ -85,6 +90,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

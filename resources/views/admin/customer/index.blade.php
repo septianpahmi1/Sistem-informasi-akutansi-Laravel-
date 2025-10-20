@@ -13,11 +13,13 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
+                @if(Auth::user()->role == 'Admin')
                 <div class="col-sm-6">
                     <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
                         data-target="#customer">Buat Customer Baru</button>
                 </div>
                 @extends('admin.customer.create')
+            @endif
             </div>
         </div>
     </div>
@@ -40,7 +42,9 @@
                                         <th>No. Telp</th>
                                         <th>Email</th>
                                         <th>Alamat</th>
+                                        @if(Auth::user()->role == 'Admin')
                                         <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,6 +55,7 @@
                                             <td>{{ $item->phone ?? '-' }}</td>
                                             <td>{{ $item->email ?? '-' }}</td>
                                             <td>{{ Str::limit($item->address ?? '-', 20) }}</td>
+                                            @if(Auth::user()->role == 'Admin')
                                             <td>
                                                 <div class="btn-group btn-block">
                                                     <button type="button" class="btn btn-sm btn-warning"
@@ -64,6 +69,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     @extends('admin.customer.update')

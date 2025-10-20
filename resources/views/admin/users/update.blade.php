@@ -38,6 +38,10 @@
                                     <label for="role">Pilih Role <code>*</code></label>
                                     <select id="role" name="role" class="form-control" required>
                                         <option value="" selected disabled>Pilih Role</option>
+                                        <option value="Super Admin" {{ $item->role == 'Super Admin' ? 'Selected' : '' }}>Super Admin
+                                        </option>
+                                        <option value="Owner" {{ $item->role == 'Owner' ? 'Selected' : '' }}>Owner
+                                        </option>
                                         <option value="Admin" {{ $item->role == 'Admin' ? 'Selected' : '' }}>Admin
                                         </option>
                                         <option value="Bendahara" {{ $item->role == 'Bendahara' ? 'Selected' : '' }}>

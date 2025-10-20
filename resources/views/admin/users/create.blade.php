@@ -35,6 +35,8 @@
                                 <label for="role">Pilih Role <code>*</code></label>
                                 <select id="role" name="role" class="form-control" required>
                                     <option value="" selected disabled>Pilih Role</option>
+                                    <option value="Super Admin">Super Admin</option>
+                                    <option value="Owner">Owner</option>
                                     <option value="Admin">Admin</option>
                                     <option value="Bendahara">Bendahara</option>
                                 </select>

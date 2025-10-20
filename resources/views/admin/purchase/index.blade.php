@@ -13,10 +13,12 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
+                @if(Auth::user()->role == 'Admin')
                 <div class="col-sm-6">
                     <a href="{{ route('purchase.create') }}" class="btn btn-success float-sm-right" type="button">Buat
                         Faktur Pembelian</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -42,7 +44,9 @@
                                         <th>Qty</th>
                                         <th>Total</th>
                                         <th>Status</th>
+                                        @if(Auth::user()->role == 'Admin')
                                         <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +59,7 @@
                                             <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
                                             <td>{{ $item->qty }} {{ $item->unit }}</td>
                                             <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
+                                            
                                             <td>
                                                 @if ($item->status == 'draft')
                                                     <button class="btn btn-outline-warning btn-sm btn-block"
@@ -68,6 +73,7 @@
                                                         Due</button>
                                                 @endif
                                             </td>
+                                            @if(Auth::user()->role == 'Admin')
                                             <td>
                                                 <div class="btn-group btn-block">
                                                     <a href="{{ route('purchase.invoice', $item->id) }}"
@@ -85,6 +91,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

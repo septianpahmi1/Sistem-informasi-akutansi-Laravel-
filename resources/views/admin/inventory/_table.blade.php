@@ -37,7 +37,7 @@
         <td>{{ $saldoQty }}</td>
         <td>{{ rupiah($saldoHarga) }}</td>
         <td>{{ rupiah($saldoTotal) }}</td>
-
+@if(Auth::user()->role == 'Admin')
         <td>
             <div class="btn-group btn-block">
                 <button type="button" class="btn btn-sm btn-success" data-toggle="modal"
@@ -52,6 +52,7 @@
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
+            @endif
         </td>
     </tr>
 @endforeach

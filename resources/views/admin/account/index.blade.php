@@ -13,11 +13,13 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
+                @if(Auth::user()->role == 'Admin')
                 <div class="col-sm-6">
                     <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
                         data-target="#account">Buat Akun Baru</button>
                 </div>
                 @extends('admin.account.create')
+                @endif
             </div>
         </div>
     </div>
@@ -56,9 +58,12 @@
                                         <th>Credit</th>
                                         <th>Saldo Awal</th>
                                         <th>Total</th>
+                                        @if(Auth::user()->role == 'Admin')
                                         <th>Aksi</th>
+                                        @endif
                                     </tr>
                                 </thead>
+                                
                                 <tbody>
                                     @foreach ($data as $item)
                                         @php
@@ -76,6 +81,7 @@
                                             <td>Rp. {{ number_format($totalKredit, 0, ',', '.') }}</td>
                                             <td>Rp. {{ number_format($item->opening_balance, 0, ',', '.') }}</td>
                                             <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
+                                            @if(Auth::user()->role == 'Admin')
                                             <td>
                                                 <div class="btn-group btn-block">
                                                     <button type="button" class="btn btn-sm btn-warning"
@@ -89,6 +95,7 @@
                                                     </button>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     @extends('admin.account.update')

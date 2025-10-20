@@ -62,6 +62,68 @@ class InventoryController extends Controller
         }
         return redirect('inventory')->with('success', 'Persediaan berhasil ditambahkan.');
     }
+    
+    public function updatepost(Request $request, $id)
+    {
+        $inventory = Inventory::findOrFail($id);
+    
+    
+        $priceIn = str_replace(['Rp', ' ', '.'], '', $request->price);
+        $totalIn = str_replace(['Rp', ' ', '.'], '', $request->total);
+        $priceOut = str_replace(['Rp', ' ', '.'], '', $request->priceout ?? 0);
+        $totalOut = str_replace(['Rp', ' ', '.'], '', $request->totalout ?? 0);
+    
+        $inventory->update([
+            'code' => $request->code,
+            'name' => $request->name,
+            'date' => $request->date,
+        ]);
+    
+        // --- Update atau buat ulang Persediaan Masuk ---
+        $stockIn = $inventory->stockIn()->first();
+        if ($stockIn) {
+            $stockIn->update([
+                'qty' => $request->qty,
+                'price' => $priceIn,
+                'total' => $totalIn,
+                'unit' => $request->unit,
+            ]);
+        } else {
+            $inventory->stockIn()->create([
+                'qty' => $request->qty,
+                'price' => $priceIn,
+                'total' => $totalIn,
+                'unit' => $request->unit,
+            ]);
+        }
+    
+        $totalQtyIn = $inventory->stockIn()->sum('qty');
+        $totalQtyOut = $request->qtyout ?? 0;
+    
+        if ($totalQtyOut > $totalQtyIn) {
+            return redirect()->back()->with('error', 'Jumlah keluar tidak boleh melebihi jumlah masuk.');
+        }
+    
+        $stockOut = $inventory->stockOut()->first();
+        if ($stockOut) {
+            $stockOut->update([
+                'qty' => $totalQtyOut,
+                'price' => $priceOut,
+                'total' => $totalOut,
+                'unit' => $request->unitout ?? $inventory->unit,
+            ]);
+        } elseif ($totalQtyOut > 0) {
+            $inventory->stockOut()->create([
+                'qty' => $totalQtyOut,
+                'price' => $priceOut,
+                'total' => $totalOut,
+                'unit' => $request->unitout ?? $inventory->unit,
+            ]);
+        }
+    
+        return redirect()->route('inventory')->with('success', 'Data persediaan berhasil diperbarui.');
+    }
+
 
     public function invout(Request $request, $id)
     {
@@ -81,12 +143,12 @@ class InventoryController extends Controller
 
         SupplyOut::create([
             'inventory_id' => $data->id,
-            'date' => $request->dateout,
+            // 'date' => $request->dateout,
             'unit' => $request->unit,
             'proof_number' => $request->proof_numberout,
             'qty' => $request->qtyout,
             'price' => $request->priceout,
-            'total' => $request->totalout,
+            'total' => $request->priceout * $request->qtyout,
         ]);
 
         return redirect('inventory')->with('success', 'Persediaan keluar berhasil ditambahkan.');
