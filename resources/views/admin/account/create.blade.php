@@ -31,10 +31,10 @@
                                 <select name="type" id="type" class="form-control" required>
                                     <option selected disabled>-- Pilih Tipe Akun --</option>
                                     <option value="asset">Aset</option>
+                                    <option value="liability">Kewajiban</option>
                                     <option value="equity">Ekuitas</option>
-                                    <option value="income">Penghasilan</option>
-                                    <option value="liability">Beban</option>
-                                    <option value="expense">Pengeluaran</option>
+                                    <option value="income">Pendapatan</option>
+                                    <option value="expense">Beban</option>
                                 </select>
                             </div>
                         </div>

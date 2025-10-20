@@ -34,13 +34,13 @@
                                         <option value="asset" {{ $item->type == 'asset' ? 'selected' : '' }}>Aset
                                         </option>
                                         <option value="liability" {{ $item->type == 'liability' ? 'selected' : '' }}>
-                                            Beban</option>
+                                            Kewajiban</option>
                                         <option value="equity" {{ $item->type == 'equity' ? 'selected' : '' }}>Ekuitas
                                         </option>
                                         <option value="income" {{ $item->type == 'income' ? 'selected' : '' }}>
                                             Penghasilan</option>
                                         <option value="expense" {{ $item->type == 'expense' ? 'selected' : '' }}>
-                                            Pengeluaran</option>
+                                            Beban</option>
                                     </select>
                                 </div>
                             </div>
