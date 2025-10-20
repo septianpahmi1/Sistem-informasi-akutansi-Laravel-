@@ -28,18 +28,24 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">DataTable {{ $title }}</h3>
+                            <form id="filter-inventory" class="form-inline float-right">
+                                <div class="input-group input-group-sm">
+                                    <input type="date" name="start_date" id="start_date" class="form-control"
+                                        value="{{ request('start_date', now()->startOfMonth()->toDateString()) }}">
+                                    <span class="mx-1">s/d</span>
+                                    <input type="date" name="end_date" id="end_date" class="form-control"
+                                        value="{{ request('end_date', now()->endOfMonth()->toDateString()) }}">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-search"></i> Tampilkan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            @php
-                                if (!function_exists('rupiah')) {
-                                    function rupiah($angka)
-                                    {
-                                        return 'Rp ' . number_format($angka ?? 0, 0, ',', '.');
-                                    }
-                                }
-                            @endphp
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="entries1" class="table table-bordered table-striped">
                                 <thead class="text-center">
                                     <tr>
                                         <th rowspan="2">Tgl</th>
@@ -66,58 +72,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $item)
-                                        @php
-                                            $totalInQty = $item->stockIn->sum('qty');
-                                            $totalInPrice = $item->stockIn->avg('price');
-                                            $totalInTotal = $item->stockIn->sum('total');
-
-                                            $totalOutQty = $item->stockOut->sum('qty');
-                                            $totalOutPrice = $item->stockOut->avg('price');
-                                            $totalOutTotal = $item->stockOut->sum('total');
-
-                                            $saldoQty = $totalInQty - $totalOutQty;
-                                            $saldoHarga = $saldoQty > 0 ? $totalInPrice : 0;
-                                            $saldoTotal = $saldoQty * $saldoHarga;
-                                        @endphp
-
-                                        <tr class="text-center">
-                                            <td>{{ Carbon\Carbon::parse($item->date)->format('d/m/y') }}</td>
-                                            <td>{{ $item->code }}</td>
-                                            <td>{{ $item->name }}</td>
-
-                                            <td>{{ $totalInQty }}</td>
-                                            <td>{{ rupiah($totalInPrice) }}</td>
-                                            <td>{{ rupiah($totalInTotal) }}</td>
-
-                                            <td>{{ $totalOutQty }}</td>
-                                            <td>{{ rupiah($totalOutPrice) }}</td>
-                                            <td>{{ rupiah($totalOutTotal) }}</td>
-
-                                            <td>{{ $saldoQty }}</td>
-                                            <td>{{ rupiah($saldoHarga) }}</td>
-                                            <td>{{ rupiah($saldoTotal) }}</td>
-
-                                            <td>
-                                                <div class="btn-group btn-block">
-                                                    <button type="button" class="btn btn-sm btn-success"
-                                                        data-toggle="modal"
-                                                        data-target="#inventory{{ $item->id }}">
-                                                        <i class="fas fa-door-open"></i>
-                                                    </button>
-                                                    <a href="{{ route('inventory.update', $item->id) }}" type="button"
-                                                        class="btn btn-sm btn-warning">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <button url="{{ route('inventory.delete', $item->id) }}"
-                                                        type="button" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $item->id }}">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    @include('admin.inventory._table', ['data' => $data])
                                     @include('admin.inventory.supply_out')
                                 </tbody>
                             </table>

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('supply_outs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('inventory_id')->constrained('inventories')->cascadeOnDelete();
-            $table->date('date');
-            $table->string('proof_number')->unique(); // nomor bukti keluar
+            $table->date('date')->nullable();
+            $table->string('proof_number')->unique()->nullable(); // nomor bukti keluar
             $table->integer('qty');
             $table->decimal('price', 15, 2)->nullable(); // bisa diisi harga saat keluar, jika perlu
             $table->decimal('total', 15, 2)->nullable();

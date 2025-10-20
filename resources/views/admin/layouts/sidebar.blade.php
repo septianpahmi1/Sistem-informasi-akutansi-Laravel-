@@ -16,97 +16,104 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">USER MANAGEMENT</li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('users') }}" class="nav-link {{ Request::is('users') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Pengguna
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">MASTER DATA</li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('account') }}" class="nav-link {{ Request::is('account') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>
-                            Akun
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('supplier') }}" class="nav-link {{ Request::is('supplier') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-user-tag"></i>
-                        <p>
-                            Supplier
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('customer') }}" class="nav-link{{ Request::is('customer') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Customer
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('mitra') }}" class="nav-link{{ Request::is('mitra') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-user-tie"></i>
-                        <p>
-                            Investor/ Mitra
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">INVENTORY</li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('inventory') }}"
-                        class="nav-link{{ Request::is(['inventory']) ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-boxes"></i>
-                        <p>
-                            Persediaan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">FAKTUR</li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('sales') }}"
-                        class="nav-link{{ Request::is(['sales', 'sales/create', 'sales/update/*']) ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-file-invoice"></i>
-                        <p>
-                            Penjualan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('purchase') }}"
-                        class="nav-link{{ Request::is(['purchase', 'purchase/create', 'purchase/update/*']) ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-receipt"></i>
-                        <p>
-                            Pembelian
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">JOURNAL</li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('journal') }}" class="nav-link{{ Request::is('journal') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-book-open"></i>
-                        <p>
-                            Journal
-                        </p>
-                    </a>
+                @if (Auth::user()->role == 'Admin')
+                    <li class="nav-header">USER MANAGEMENT</li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('users') }}" class="nav-link {{ Request::is('users') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Pengguna
+                            </p>
+                        </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 'Bendahara')
+                    <li class="nav-header">MASTER DATA</li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('account') }}" class="nav-link {{ Request::is('account') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                            <p>
+                                Akun
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('supplier') }}"
+                            class="nav-link {{ Request::is('supplier') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-user-tag"></i>
+                            <p>
+                                Supplier
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('customer') }}"
+                            class="nav-link{{ Request::is('customer') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Customer
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('mitra') }}" class="nav-link{{ Request::is('mitra') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p>
+                                Investor/ Mitra
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-header">INVENTORY</li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('inventory') }}"
+                            class="nav-link{{ Request::is(['inventory', 'inventory/create', 'inventory/update/*']) ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>
+                                Persediaan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-header">FAKTUR</li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('sales') }}"
+                            class="nav-link{{ Request::is(['sales', 'sales/create', 'sales/update/*']) ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-file-invoice"></i>
+                            <p>
+                                Penjualan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('purchase') }}"
+                            class="nav-link{{ Request::is(['purchase', 'purchase/create', 'purchase/update/*']) ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-receipt"></i>
+                            <p>
+                                Pembelian
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-header">JOURNAL</li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('journal') }}"
+                            class="nav-link{{ Request::is('journal') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-book-open"></i>
+                            <p>
+                                Journal
+                            </p>
+                        </a>
 
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('entries') }}"
-                        class="nav-link{{ Request::is('journal-entries') ? ' active' : '' }}">
-                        <i class="nav-icon fas fa-swatchbook"></i>
-                        <p>
-                            Daftar Journal
-                        </p>
-                    </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('entries') }}"
+                            class="nav-link{{ Request::is('journal-entries') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-swatchbook"></i>
+                            <p>
+                                Daftar Journal
+                            </p>
+                        </a>
 
-                </li>
+                    </li>
+                @endif
                 <li class="nav-header">REPORT</li>
                 {{-- <li class="nav-item menu-open">
                     <a href="{{ route('reportJournal') }}"
