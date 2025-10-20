@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('supply_ins', function (Blueprint $table) {
             $table->id();
             $table->foreignId('inventory_id')->constrained('inventories')->cascadeOnDelete();
-            $table->date('date');
-            $table->string('proof_number')->unique(); // nomor bukti masuk
+            $table->date('date')->nullable();
+            $table->string('proof_number')->unique()->nullable();
             $table->integer('qty');
             $table->decimal('price', 15, 2);
             $table->decimal('total', 15, 2);

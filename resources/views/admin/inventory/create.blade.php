@@ -30,12 +30,18 @@
                             @csrf
                             <div class="card-body">
                                 <div class="row">
-
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="code">Kode Barang <code>*</code></label>
                                             <input type="text" name="code" maxlength="150" id="code"
                                                 class="form-control" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="date">Tanggal <code>*</code></label>
+                                            <input type="date" name="date" id="date" class="form-control"
+                                                required />
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -52,20 +58,6 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="proof_number">Nomor Bukti <code>*</code></label>
-                                                            <input type="proof_number" name="proof_number"
-                                                                id="proof_number" class="form-control" required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="date">Tanggal <code>*</code></label>
-                                                            <input type="date" name="date" id="date"
-                                                                class="form-control" required />
-                                                        </div>
-                                                    </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="price">Harga <code>*</code></label>
@@ -115,21 +107,6 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="proof_number">Nomor Bukti
-                                                                <code>*</code></label>
-                                                            <input type="proof_number" name="proof_numberout"
-                                                                id="proof_number" class="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="dateout">Tanggal <code>*</code></label>
-                                                            <input type="date" name="dateout" id="dateout"
-                                                                class="form-control" />
-                                                        </div>
-                                                    </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="price">Harga <code>*</code></label>

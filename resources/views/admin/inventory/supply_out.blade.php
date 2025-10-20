@@ -12,20 +12,6 @@
                     <div class="modal-body">
                         @csrf
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="proof_number">Nomor Bukti
-                                        <code>*</code></label>
-                                    <input type="proof_number" name="proof_numberout" id="proof_number"
-                                        class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="dateout">Tanggal <code>*</code></label>
-                                    <input type="date" name="dateout" id="dateout" class="form-control" />
-                                </div>
-                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="price">Harga <code>*</code></label>

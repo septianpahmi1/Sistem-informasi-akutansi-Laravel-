@@ -12,7 +12,7 @@ class InventoryController extends Controller
     public function index()
     {
         $title = "Persediaan";
-        $data = Inventory::orderBy('created_at', 'asc')->get();
+        $data = Inventory::orderBy('date', 'asc')->get();
 
         return view('admin.inventory.index', compact('title', 'data'));
     }
@@ -97,5 +97,24 @@ class InventoryController extends Controller
         $data = Inventory::find($id);
         $data->delete();
         return redirect('inventory')->with('success', 'Persediaan berhasil dihapus.');
+    }
+
+    public function getData(Request $request)
+    {
+        $startDate = $request->input('start_date', now()->startOfMonth()->toDateString());
+        $endDate = $request->input('end_date', now()->endOfMonth()->toDateString());
+
+        $data = Inventory::whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date', 'asc')
+            ->get();
+
+        if ($request->ajax()) {
+            return view('admin.inventory._table', compact('data'))->render();
+        }
+
+        return view('admin.inventory.index', [
+            'title' => 'Persediaan',
+            'data' => $data,
+        ]);
     }
 }

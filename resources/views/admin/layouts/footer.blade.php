@@ -157,6 +157,29 @@
     });
 </script>
 <script>
+    $('#filter-inventory').on('submit', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: "{{ route('inventory.getData') }}",
+            type: "GET",
+            data: {
+                start_date: $('#start_date').val(),
+                end_date: $('#end_date').val(),
+            },
+            beforeSend: function() {
+                $('tbody').html('<tr><td colspan="13" class="text-center">Loading...</td></tr>');
+            },
+            success: function(response) {
+                $('table#entries1 tbody').html(response);
+            },
+            error: function() {
+                alert('Terjadi kesalahan saat memuat data.');
+            }
+        });
+    });
+</script>
+<script>
     $(function() {
         $("#entries1").DataTable({
             "responsive": true,
@@ -168,6 +191,7 @@
         }).buttons().container().appendTo('#entries1_wrapper .col-md-6:eq(0)');
     });
 </script>
+
 <script>
     $(function() {
         $("#example1").DataTable({
