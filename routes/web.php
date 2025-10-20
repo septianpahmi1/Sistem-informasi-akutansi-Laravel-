@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\ProfileController;
@@ -46,6 +47,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('mitra/post', [MitraController::class, 'post'])->name('mitra.post');
     Route::post('mitra/update/{id}', [MitraController::class, 'update'])->name('mitra.update');
     Route::get('mitra/delete/{id}', [MitraController::class, 'delete'])->name('mitra.delete');
+
+    Route::get('inventory', [InventoryController::class, 'index'])->name('inventory');
+    Route::get('inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
+    Route::post('inventory/create/post', [InventoryController::class, 'post'])->name('inventory.post');
+    Route::get('inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
+    Route::post('inventory/update/post/{id}', [InventoryController::class, 'updatepost'])->name('inventory.updatepost');
+    Route::get('inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inventory.delete');
 
     Route::get('sales', [SalesController::class, 'index'])->name('sales');
     Route::get('sales/create', [SalesController::class, 'create'])->name('sales.create');

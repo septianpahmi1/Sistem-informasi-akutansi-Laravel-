@@ -11,7 +11,8 @@ class AccountController extends Controller
     public function index()
     {
         $title = "Account";
-        $data = Account::all();
+        $data = Account::orderBy('code', 'asc')
+            ->get();
         return view('admin.account.index', compact('title', 'data'));
     }
 
@@ -68,8 +69,8 @@ class AccountController extends Controller
         $end = $request->input('end_date', date('Y-m-d'));
 
         $data = Account::with(['journalEntries' => function ($query) use ($start, $end) {
-            $query->whereBetween('created_at', [$start, $end]);
-        }])->get();
+            $query->whereBetween('date', [$start, $end]);
+        }])->orderBy('code', 'asc')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()

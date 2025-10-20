@@ -21,6 +21,7 @@ class AruskasController extends Controller
             'start_date' => 'required|date_format:Y-m-d',
             'end_date'   => 'required|date_format:Y-m-d',
         ]);
+
         $title = "Laporan Arus Kas";
         $periodStart = Carbon::parse($request->start_date)->startOfDay();
         $periodEnd   = Carbon::parse($request->end_date)->endOfDay();
@@ -29,26 +30,47 @@ class AruskasController extends Controller
             ->whereHas('journal', fn($q) => $q->whereBetween('date', [$periodStart, $periodEnd]))
             ->get();
 
-        // Aktivitas Operasi: akun tipe income & expense yang terkait operasional
-        $operatingActivities = $entries->filter(fn($e) => in_array($e->account->type, ['income', 'expense']))
+        // Aktivitas Operasi: income & expense, tapi HPP (harga pokok) dikecualikan
+        $operatingActivities = $entries
+            ->filter(
+                fn($e) =>
+                in_array($e->account->type, ['income', 'expense']) &&
+                    !str_contains(strtolower($e->account->name), 'pokok')
+            )
             ->map(fn($e) => [
                 'name' => $e->account->name,
-                'amount' => $e->type === 'debit' ? $e->total : -$e->total
-            ])->values()->toArray();
+                'amount' => $e->type === 'debit' ? $e->total : -$e->total,
+            ])
+            ->values()
+            ->toArray();
 
-        // Aktivitas Investasi: akun asset tetap (misal 'Peralatan', 'Gedung', dsb)
-        $investingActivities = $entries->filter(fn($e) => $e->account->type === 'asset' && !in_array($e->account->name, ['Kas', 'Bank']))
+        // Aktivitas Investasi: aset tetap selain Kas/Bank
+        $investingActivities = $entries
+            ->filter(
+                fn($e) =>
+                $e->account->type === 'asset' &&
+                    !in_array($e->account->name, ['Kas', 'Bank'])
+            )
             ->map(fn($e) => [
                 'name' => $e->account->name,
-                'amount' => $e->type === 'debit' ? -$e->total : $e->total
-            ])->values()->toArray();
+                'amount' => $e->type === 'debit' ? -$e->total : $e->total,
+            ])
+            ->values()
+            ->toArray();
 
         // Aktivitas Pendanaan: liability & equity
-        $financingActivities = $entries->filter(fn($e) => in_array($e->account->type, ['liability', 'equity']))
+        $financingActivities = $entries
+            ->filter(
+                fn($e) =>
+                in_array($e->account->type, ['liability', 'equity']) &&
+                    !str_contains(strtolower($e->account->name), 'pokok')
+            )
             ->map(fn($e) => [
                 'name' => $e->account->name,
-                'amount' => $e->type === 'debit' ? -$e->total : $e->total
-            ])->values()->toArray();
+                'amount' => $e->type === 'debit' ? -$e->total : $e->total,
+            ])
+            ->values()
+            ->toArray();
 
         $totalOperating = array_sum(array_column($operatingActivities, 'amount'));
         $totalInvesting = array_sum(array_column($investingActivities, 'amount'));

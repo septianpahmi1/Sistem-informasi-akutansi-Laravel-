@@ -78,6 +78,24 @@ function applyAutoTotal() {
     priceInput.addEventListener("input", calculateTotal);
     qtyInput.addEventListener("input", calculateTotal);
 }
+function applyAutoTotalDua() {
+    const priceoutInput = document.getElementById("priceout");
+    const qtyoutInput = document.getElementById("number");
+    const totaloutInput = document.getElementById("totalout");
+
+    if (!priceoutInput || !qtyoutInput || !totaloutInput) return;
+
+    function calculateTotal() {
+        const priceout =
+            parseInt(priceoutInput.value.replace(/[^0-9]/g, "")) || 0;
+        const qtyout = parseInt(qtyoutInput.value.replace(/[^0-9]/g, "")) || 0;
+        const totalout = priceout * qtyout;
+        totaloutInput.value = formatRupiah(totalout.toString(), "Rp ");
+    }
+
+    priceoutInput.addEventListener("input", calculateTotal);
+    qtyoutInput.addEventListener("input", calculateTotal);
+}
 
 // ===============================
 // JALANKAN SEMUA SAAT HALAMAN DIMUAT
@@ -85,6 +103,7 @@ function applyAutoTotal() {
 document.addEventListener("DOMContentLoaded", () => {
     applyRupiahFormat();
     applyAutoTotal();
+    applyAutoTotalDua();
     onlyNumberInput();
 });
 
