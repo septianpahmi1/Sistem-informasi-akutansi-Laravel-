@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('inventory/create/post', [InventoryController::class, 'post'])->name('inventory.post');
     Route::get('inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
     Route::post('inventory/update/post/{id}', [InventoryController::class, 'updatepost'])->name('inventory.updatepost');
+    Route::post('inventory/out/post/{id}', [InventoryController::class, 'invout'])->name('inventory.out');
     Route::get('inventory/delete/{id}', [InventoryController::class, 'delete'])->name('inventory.delete');
 
     Route::get('sales', [SalesController::class, 'index'])->name('sales');

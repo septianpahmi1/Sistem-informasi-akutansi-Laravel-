@@ -42,24 +42,25 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead class="text-center">
                                     <tr>
-                                        <th rowspan="2">Kode</th>
+                                        <th rowspan="2">Tgl</th>
+                                        <th rowspan="2">Kode Brg</th>
                                         <th rowspan="2">Nama Barang</th>
-                                        <th colspan="3">Persediaan Masuk</th>
-                                        <th colspan="3">Persediaan Keluar</th>
+                                        <th colspan="3">Masuk</th>
+                                        <th colspan="3">Keluar</th>
                                         <th colspan="3">Saldo Akhir</th>
                                         <th rowspan="2">Aksi</th>
                                     </tr>
                                     <tr>
                                         {{-- Masuk --}}
-                                        <th>Unit</th>
+                                        <th>Qty</th>
                                         <th>Harga</th>
                                         <th>Jumlah</th>
                                         {{-- Keluar --}}
-                                        <th>Unit</th>
+                                        <th>Qty</th>
                                         <th>Harga</th>
                                         <th>Jumlah</th>
                                         {{-- Saldo --}}
-                                        <th>Unit</th>
+                                        <th>Qty</th>
                                         <th>Harga</th>
                                         <th>Jumlah</th>
                                     </tr>
@@ -81,6 +82,7 @@
                                         @endphp
 
                                         <tr class="text-center">
+                                            <td>{{ Carbon\Carbon::parse($item->date)->format('d/m/y') }}</td>
                                             <td>{{ $item->code }}</td>
                                             <td>{{ $item->name }}</td>
 
@@ -98,11 +100,15 @@
 
                                             <td>
                                                 <div class="btn-group btn-block">
-                                                    <button type="button" class="btn btn-sm btn-warning"
+                                                    <button type="button" class="btn btn-sm btn-success"
                                                         data-toggle="modal"
                                                         data-target="#inventory{{ $item->id }}">
-                                                        <i class="fas fa-edit"></i>
+                                                        <i class="fas fa-door-open"></i>
                                                     </button>
+                                                    <a href="{{ route('inventory.update', $item->id) }}" type="button"
+                                                        class="btn btn-sm btn-warning">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
                                                     <button url="{{ route('inventory.delete', $item->id) }}"
                                                         type="button" class="btn btn-sm btn-danger delete"
                                                         data-id="{{ $item->id }}">
@@ -112,6 +118,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @include('admin.inventory.supply_out')
                                 </tbody>
                             </table>
 

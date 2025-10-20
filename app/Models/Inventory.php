@@ -9,7 +9,7 @@ class Inventory extends Model
     protected $fillable = [
         'code',
         'name',
-        'unit',
+        'date',
     ];
     public function stockIn()
     {

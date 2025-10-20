@@ -22,6 +22,12 @@ class InventoryController extends Controller
         $title = "Buat Persediaan";
         return view('admin.inventory.create', compact('title'));
     }
+    public function update($id)
+    {
+        $title = "Update Persediaan";
+        $data = Inventory::find($id);
+        return view('admin.inventory.update', compact('title', 'data'));
+    }
 
     public function post(Request $request)
     {
@@ -29,11 +35,10 @@ class InventoryController extends Controller
         if ($codeExist) {
             return redirect()->back()->with('error', 'Barang dengan kode' . ' ' . $request->code . ' ' . 'Sudah terdaftar');
         }
-
         $inventory = Inventory::create([
             'code' => $request->code,
             'name' => $request->name,
-            'unit' => $request->unit,
+            'date' => $request->date,
         ]);
         SupplyIn::create([
             'inventory_id' => $inventory->id,
@@ -56,5 +61,41 @@ class InventoryController extends Controller
             ]);
         }
         return redirect('inventory')->with('success', 'Persediaan berhasil ditambahkan.');
+    }
+
+    public function invout(Request $request, $id)
+    {
+        $data = Inventory::find($id);
+
+        $totalIn = SupplyIn::where('inventory_id', $id)->sum('qty');
+        $totalOut = SupplyOut::where('inventory_id', $id)->sum('qty');
+
+        $sisa = $totalIn - $totalOut;
+        if ($request->qtyout > $sisa) {
+            return redirect()->back()->with([
+                'error' => 'Jumlah keluar melebihi stok tersedia (' . $sisa . ').'
+            ]);
+        }
+        $request['priceout'] = str_replace(['Rp ', '.'], '', $request['priceout']);
+        $request['totalout'] = str_replace(['Rp ', '.'], '', $request['totalout']);
+
+        SupplyOut::create([
+            'inventory_id' => $data->id,
+            'date' => $request->dateout,
+            'unit' => $request->unit,
+            'proof_number' => $request->proof_numberout,
+            'qty' => $request->qtyout,
+            'price' => $request->priceout,
+            'total' => $request->totalout,
+        ]);
+
+        return redirect('inventory')->with('success', 'Persediaan keluar berhasil ditambahkan.');
+    }
+
+    public function delete($id)
+    {
+        $data = Inventory::find($id);
+        $data->delete();
+        return redirect('inventory')->with('success', 'Persediaan berhasil dihapus.');
     }
 }

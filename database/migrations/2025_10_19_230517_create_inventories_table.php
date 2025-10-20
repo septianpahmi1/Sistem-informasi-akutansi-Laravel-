@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->string('name');
-            $table->enum('unit', ['Pcs', 'Unit', 'Buah', 'Gram', 'Kg', 'Dus', 'Box', 'Lusin', 'Pack']);
+            $table->string('name');;
+            $table->date('date');;
             $table->timestamps();
         });
     }
