@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DapurController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\JournalController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Reports\AruskasController;
+use App\Http\Controllers\Reports\DevidenController;
 use App\Http\Controllers\Reports\JournalController as ReportsJournalController;
 use App\Http\Controllers\Reports\LabarugiController;
 use App\Http\Controllers\SalesController;
@@ -26,6 +28,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('users/post', [UserController::class, 'post'])->name('users.post');
     Route::post('users/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::get('users/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+
+    Route::get('dapur', [DapurController::class, 'index'])->name('dapur');
+    Route::post('dapur/post', [DapurController::class, 'post'])->name('dapur.post');
+    Route::post('dapur/update/{id}', [DapurController::class, 'update'])->name('dapur.update');
+    Route::get('dapur/delete/{id}', [DapurController::class, 'delete'])->name('dapur.delete');
 
     Route::get('account', [AccountController::class, 'index'])->name('account');
     Route::post('account/post', [AccountController::class, 'post'])->name('account.post');
@@ -90,6 +97,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('reports/laba-rugi/get-data', [LabarugiController::class, 'getData'])->name('reportLaba.getdata');
     Route::get('reports/arus-kas', [AruskasController::class, 'index'])->name('reportAruskas');
     Route::get('reports/arus-kas/get-data', [AruskasController::class, 'getData'])->name('reportAruskas.getdata');
+    Route::get('reports/deviden', [DevidenController::class, 'index'])->name('reportDeviden');
+    Route::get('reports/deviden/get-data', [DevidenController::class, 'getData'])->name('reportDeviden.getdata');
 });
 
 // Route::middleware('auth')->group(function () {

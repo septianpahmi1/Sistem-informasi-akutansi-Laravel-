@@ -56,6 +56,14 @@
                         </a>
                     </li>
                     <li class="nav-item menu-open">
+                        <a href="{{ route('dapur') }}" class="nav-link{{ Request::is('dapur') ? ' active' : '' }}">
+                            <i class="nav-icon fas fa-warehouse"></i>
+                            <p>
+                                Dapur
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
                         <a href="{{ route('mitra') }}" class="nav-link{{ Request::is('mitra') ? ' active' : '' }}">
                             <i class="nav-icon fas fa-user-tie"></i>
                             <p>
@@ -95,7 +103,7 @@
                     <li class="nav-header">JOURNAL</li>
                     <li class="nav-item menu-open">
                         <a href="{{ route('journal') }}"
-                            class="nav-link{{ Request::is('journal') ? ' active' : '' }}">
+                            class="nav-link{{ Request::is(['journal', 'journal/create', 'journal/update/*']) ? ' active' : '' }}">
                             <i class="nav-icon fas fa-book-open"></i>
                             <p>
                                 Journal
@@ -115,8 +123,8 @@
                     </li>
                 @endif
                 @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Owner')
-                <li class="nav-header">REPORT</li>
-                {{-- <li class="nav-item menu-open">
+                    <li class="nav-header">REPORT</li>
+                    {{-- <li class="nav-item menu-open">
                     <a href="{{ route('reportJournal') }}"
                         class="nav-link{{ Request::is('reports/journal-umum') ? ' active' : '' }}">
                         <i class="fas fa-circle-notch"></i>
@@ -125,24 +133,33 @@
                         </p>
                     </a>
                 </li> --}}
-                <li class="nav-item menu-open">
-                    <a href="{{ route('reportLaba') }}"
-                        class="nav-link{{ Request::is('reports/laba-rugi') ? ' active' : '' }}">
-                        <i class="fas fa-circle-notch"></i>
-                        <p>
-                            Laba Rugi
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="{{ route('reportAruskas') }}"
-                        class="nav-link{{ Request::is('reports/arus-kas') ? ' active' : '' }}">
-                        <i class="fas fa-circle-notch"></i>
-                        <p>
-                            Arus Kas
-                        </p>
-                    </a>
-                </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('reportLaba') }}"
+                            class="nav-link{{ Request::is('reports/laba-rugi') ? ' active' : '' }}">
+                            <i class="fas fa-circle-notch"></i>
+                            <p>
+                                Laba Rugi
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('reportAruskas') }}"
+                            class="nav-link{{ Request::is('reports/arus-kas') ? ' active' : '' }}">
+                            <i class="fas fa-circle-notch"></i>
+                            <p>
+                                Arus Kas
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="{{ route('reportDeviden') }}"
+                            class="nav-link{{ Request::is('reports/deviden') ? ' active' : '' }}">
+                            <i class="fas fa-circle-notch"></i>
+                            <p>
+                                Deviden
+                            </p>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>

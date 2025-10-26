@@ -13,11 +13,12 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
-                @if(Auth::user()->role == 'Admin')
-                <div class="col-sm-6">
-                    <a href="{{ route('purchase.create') }}" class="btn btn-success float-sm-right" type="button">Buat
-                        Faktur Pembelian</a>
-                </div>
+                @if (Auth::user()->role == 'Admin')
+                    <div class="col-sm-6">
+                        <a href="{{ route('purchase.create') }}" class="btn btn-success float-sm-right"
+                            type="button">Buat
+                            Faktur Pembelian</a>
+                    </div>
                 @endif
             </div>
         </div>
@@ -26,6 +27,31 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-lg-6 col-6">
+                    <!-- small card -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3>{{ $dataCount }}</h3>
+                            <p>Jumlah Data Pembelian</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-list-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-6 col-6">
+                    <!-- small card -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>Rp. {{ number_format($dataSum, 0, ',', '.') }}</h3>
+                            <p>Total Pembelian</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-money-check"></i>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -44,8 +70,8 @@
                                         <th>Qty</th>
                                         <th>Total</th>
                                         <th>Status</th>
-                                        @if(Auth::user()->role == 'Admin')
-                                        <th></th>
+                                        @if (Auth::user()->role == 'Admin')
+                                            <th></th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -59,7 +85,7 @@
                                             <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
                                             <td>{{ $item->qty }} {{ $item->unit }}</td>
                                             <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
-                                            
+
                                             <td>
                                                 @if ($item->status == 'draft')
                                                     <button class="btn btn-outline-warning btn-sm btn-block"
@@ -73,24 +99,25 @@
                                                         Due</button>
                                                 @endif
                                             </td>
-                                            @if(Auth::user()->role == 'Admin')
-                                            <td>
-                                                <div class="btn-group btn-block">
-                                                    <a href="{{ route('purchase.invoice', $item->id) }}"
-                                                        target="_blank" type="button" class="btn btn-sm btn-success">
-                                                        <i class="fas fa-file-pdf"></i>
-                                                    </a>
-                                                    <a href="{{ route('purchase.update', $item->id) }}" type="button"
-                                                        class="btn btn-sm btn-warning">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <button url="{{ route('purchase.delete', $item->id) }}"
-                                                        type="button" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $item->id }}">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            @if (Auth::user()->role == 'Admin')
+                                                <td>
+                                                    <div class="btn-group btn-block">
+                                                        <a href="{{ route('purchase.invoice', $item->id) }}"
+                                                            target="_blank" type="button"
+                                                            class="btn btn-sm btn-success">
+                                                            <i class="fas fa-file-pdf"></i>
+                                                        </a>
+                                                        <a href="{{ route('purchase.update', $item->id) }}"
+                                                            type="button" class="btn btn-sm btn-warning">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <button url="{{ route('purchase.delete', $item->id) }}"
+                                                            type="button" class="btn btn-sm btn-danger delete"
+                                                            data-id="{{ $item->id }}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             @endif
                                         </tr>
                                     @endforeach

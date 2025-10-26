@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dapur;
 use App\Models\investor;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,9 @@ class MitraController extends Controller
     {
         $title = "Investor/ Mitra";
         $data = investor::all();
-        return view('admin.mitra.index', compact('title', 'data'));
+        $dapur = Dapur::orderBy('created_at', 'asc')
+            ->get();
+        return view('admin.mitra.index', compact('title', 'data', 'dapur'));
     }
 
     public function delete($id)
@@ -30,6 +33,7 @@ class MitraController extends Controller
         }
         investor::create([
             'name' => $request->name,
+            'dapur_id' => $request->dapur_id,
             'percentage' => $request->percentage,
         ]);
 
@@ -45,6 +49,7 @@ class MitraController extends Controller
         }
         $data = investor::find($id);
         $data->name = $request->name;
+        $data->dapur_id = $request->dapur_id;
         $data->percentage = $request->percentage;
         $data->save();
         return redirect()->back()->with('success', 'Data berhasil didaftarkan.');

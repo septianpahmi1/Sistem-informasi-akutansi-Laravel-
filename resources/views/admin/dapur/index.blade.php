@@ -15,11 +15,11 @@
                 </div>
                 @if (Auth::user()->role == 'Admin')
                     <div class="col-sm-6">
-                        <a href="{{ route('journal.create') }}" class="btn btn-success float-sm-right"
-                            type="button">Buat
-                            Journal Baru</a>
+                        <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
+                            data-target="#dapur">Buat Dapur Baru</button>
                     </div>
                 @endif
+                @include('admin.dapur.create')
             </div>
         </div>
     </div>
@@ -38,38 +38,30 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Number</th>
-                                        <th>Dapur</th>
-                                        <th>Ket</th>
-                                        <th>Tanggal</th>
+                                        <th>Nama Dapur</th>
+                                        <th>Alamat</th>
                                         @if (Auth::user()->role == 'Admin')
                                             <th></th>
                                         @endif
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data as $journal)
+                                    @foreach ($data as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $journal->invoice_number }}</td>
-                                            <td>{{ $journal->dapur->name }}</td>
-                                            <td>{{ $journal->description }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($journal->date)->format('d/m/Y') }}
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ Str::limit($item->address, 30) }}</td>
                                             </td>
                                             @if (Auth::user()->role == 'Admin')
                                                 <td>
                                                     <div class="btn-group btn-block">
-                                                        <a href="{{ route('journal.detail', $journal->id) }}"
-                                                            type="button" class="btn btn-sm btn-secondary">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                        <a href="{{ route('journal.update', $journal->id) }}"
-                                                            type="button" class="btn btn-sm btn-warning">
+                                                        <button type="button" class="btn btn-sm btn-warning"
+                                                            data-toggle="modal" data-target="#dapur{{ $item->id }}">
                                                             <i class="fas fa-edit"></i>
-                                                        </a>
-                                                        <button url="{{ route('journal.delete', $journal->id) }}"
+                                                        </button>
+                                                        <button url="{{ route('dapur.delete', $item->id) }}"
                                                             type="button" class="btn btn-sm btn-danger delete"
-                                                            data-id="{{ $journal->id }}">
+                                                            data-id="{{ $item->id }}">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -77,6 +69,7 @@
                                             @endif
                                         </tr>
                                     @endforeach
+                                    @include('admin.dapur.update')
                                 </tbody>
                             </table>
                         </div>

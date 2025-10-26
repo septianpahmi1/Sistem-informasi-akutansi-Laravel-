@@ -112,10 +112,12 @@
                     {{ $companyAddress ?? 'Jln. Hanjawar - Pacet RT.003 RW.013 Desa Sukanagalih, Kec. Cipanas, Kabupaten Cianjur' }}
                 </div>
                 <div class="report-title">Laba/Rugi (Standar)</div>
-                <div>
+                <div class="mb-4">
                     Dari {{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }}
                     s/d {{ \Carbon\Carbon::parse($periodEnd)->format('d M Y') ?? '-' }}
                 </div>
+                <div> Dapur : </div>
+                <div class="report-title">{{ $dapur->name }}</div>
                 <div class="float-right"> Mata Uang : {{ $currency ?? 'Indonesian Rupiah' }}
                 </div>
             </div>
@@ -320,7 +322,7 @@
             </div>
         </div>
         {{-- Pembagian Laba Bersih ke Investor --}}
-        @if (!empty($profitDistribution))
+        {{-- @if (!empty($profitDistribution))
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="section-title">Pembagian Laba Bersih ke Investor</div>
@@ -349,7 +351,7 @@
                     </table>
                 </div>
             </div>
-        @endif
+        @endif --}}
 
         <div class="mt-3 no-print">
             <button class="btn btn-primary" onclick="window.print()">Print</button>

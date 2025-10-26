@@ -38,7 +38,23 @@
                                                 maxlength="150" id="date" class="form-control" required />
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="dapur_id">Pilih Dapur
+                                                <code>*</code></label>
+                                            <select name="dapur_id" id="dapur_id" class="form-control select2bs4"
+                                                style="width: 100%;" required>
+                                                <option selected disabled>Pilih Dapur</option>
+                                                @foreach ($dapur as $dapurs)
+                                                    <option value="{{ $dapurs->id }}"
+                                                        {{ $data->dapur_id == $dapurs->id ? 'selected' : '' }}>
+                                                        {{ $dapurs->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="description">Keterangan <code>*</code></label>
                                             <input type="text" name="description" maxlength="150" id="description"

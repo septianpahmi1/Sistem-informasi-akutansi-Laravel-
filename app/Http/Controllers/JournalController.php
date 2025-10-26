@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Dapur;
 use App\Models\Journal;
 use App\Models\JournalEntry;
 use Illuminate\Http\Request;
@@ -12,7 +13,6 @@ class JournalController extends Controller
     public function index()
     {
         $data = Journal::orderByDesc('created_at')->get();
-
         $title = "Journal";
         return view('admin.journal.index', compact('data', 'title'));
     }
@@ -38,7 +38,9 @@ class JournalController extends Controller
         $title = "Buat Journal Baru";
         $akun = Account::orderBy('code', 'asc')
             ->get();
-        return view('admin.journal.create', compact('akun', 'title'));
+        $dapur = Dapur::orderBy('created_at', 'asc')
+            ->get();
+        return view('admin.journal.create', compact('akun', 'title', 'dapur'));
     }
 
     public function post(Request $request)
@@ -61,6 +63,7 @@ class JournalController extends Controller
         $journal = Journal::create([
             'description' => $request->description,
             'date' => $request->date,
+            'dapur_id' => $request->dapur_id,
         ]);
 
         foreach ($request->account_id as $index => $accountId) {
@@ -85,7 +88,9 @@ class JournalController extends Controller
         $data = Journal::find($id);
         $akun = Account::orderBy('code', 'asc')
             ->get();
-        return view('admin.journal.update', compact('data', 'akun', 'title'));
+        $dapur = Dapur::orderBy('created_at', 'asc')
+            ->get();
+        return view('admin.journal.update', compact('data', 'akun', 'title', 'dapur'));
     }
 
     public function updatepost(Request $request, $id)
@@ -100,6 +105,7 @@ class JournalController extends Controller
         $journal->update([
             'description' => $request->description,
             'date'        => $request->date,
+            'dapur_id'        => $request->dapur_id,
         ]);
 
         JournalEntry::where('journal_id', $journal->id)->delete();
