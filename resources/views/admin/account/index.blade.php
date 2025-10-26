@@ -13,12 +13,12 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
-                @if(Auth::user()->role == 'Admin')
-                <div class="col-sm-6">
-                    <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
-                        data-target="#account">Buat Akun Baru</button>
-                </div>
-                @extends('admin.account.create')
+                @if (Auth::user()->role == 'Admin')
+                    <div class="col-sm-6">
+                        <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
+                            data-target="#account">Buat Akun Baru</button>
+                    </div>
+                    @extends('admin.account.create')
                 @endif
             </div>
         </div>
@@ -58,12 +58,12 @@
                                         <th>Credit</th>
                                         <th>Saldo Awal</th>
                                         <th>Total</th>
-                                        @if(Auth::user()->role == 'Admin')
-                                        <th>Aksi</th>
+                                        @if (Auth::user()->role == 'Admin')
+                                            <th>Aksi</th>
                                         @endif
                                     </tr>
                                 </thead>
-                                
+
                                 <tbody>
                                     @foreach ($data as $item)
                                         @php
@@ -81,24 +81,25 @@
                                             <td>Rp. {{ number_format($totalKredit, 0, ',', '.') }}</td>
                                             <td>Rp. {{ number_format($item->opening_balance, 0, ',', '.') }}</td>
                                             <td>Rp. {{ number_format($total, 0, ',', '.') }}</td>
-                                            @if(Auth::user()->role == 'Admin')
-                                            <td>
-                                                <div class="btn-group btn-block">
-                                                    <button type="button" class="btn btn-sm btn-warning"
-                                                        data-toggle="modal" data-target="#account{{ $item->id }}">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button url="{{ route('account.delete', $item->id) }}"
-                                                        type="button" class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $item->id }}">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            @if (Auth::user()->role == 'Admin')
+                                                <td>
+                                                    <div class="btn-group btn-block">
+                                                        <button type="button" class="btn btn-sm btn-warning"
+                                                            data-toggle="modal"
+                                                            data-target="#account{{ $item->id }}">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button url="{{ route('account.delete', $item->id) }}"
+                                                            type="button" class="btn btn-sm btn-danger delete"
+                                                            data-id="{{ $item->id }}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             @endif
                                         </tr>
                                     @endforeach
-                                    @extends('admin.account.update')
+                                    @include('admin.account.update')
                                 </tbody>
                             </table>
                         </div>

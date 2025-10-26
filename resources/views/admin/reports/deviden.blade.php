@@ -26,7 +26,7 @@
                             <h3 class="card-title">Buat Laporan</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('reportLaba.getdata') }}" target="_blank" method="get"
+                        <form action="{{ route('reportDeviden.getdata') }}" target="_blank" method="get"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">

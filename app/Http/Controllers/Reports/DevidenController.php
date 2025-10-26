@@ -9,14 +9,14 @@ use App\Models\JournalEntry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class LabarugiController extends Controller
+class DevidenController extends Controller
 {
     public function index()
     {
-        $title = "Laporan Laba Rugi";
+        $title = "Pembagian Deviden";
         $dapur = Dapur::orderBy('created_at', 'asc')
             ->get();
-        return view('admin.reports.labarugi', compact('title', 'dapur'));
+        return view('admin.reports.deviden', compact('title', 'dapur'));
     }
 
     public function getData(Request $request)
@@ -75,12 +75,8 @@ class LabarugiController extends Controller
                 'name' => $e->account->name,
                 'amount' => $e->type === 'debit' ? $e->total : -$e->total,
             ])->values()->toArray();
-
-        $investors = investor::all();
-        if ($investors == null) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan');
-        }
-        return view('admin.reports.printable.laba', [
+        $investors = investor::where('dapur_id', $request->dapur_id)->get();
+        return view('admin.reports.printable.deviden', [
             'companyName' => 'KOPERASI CIPTA USAHA SENTOSA',
             'companyAddress' => 'Jl. Pd. Bambu Kuning No.8, RT.3/RW.4, Bojong Baru, Kecamatan Bojonggede, Kabupaten Bogor, Jawa Barat 16920',
             'periodStart' => $periodStart,

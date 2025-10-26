@@ -8,6 +8,11 @@ class investor extends Model
 {
     protected $fillable = [
         'name',
-        'percentage'
+        'percentage',
+        'dapur_id',
     ];
+    public function dapur()
+    {
+        return $this->belongsTo(Dapur::class, 'dapur_id');
+    }
 }

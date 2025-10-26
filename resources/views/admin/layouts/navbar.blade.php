@@ -18,6 +18,10 @@
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <span class="dropdown-item dropdown-header">{{ Auth::user()->email }}</span>
                         <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#setting">
+                            <i class="fas fa-cog mr-2"></i> Ganti Password
+                        </button>
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="route('logout')" class="dropdown-item"
@@ -31,3 +35,13 @@
                 </li>
             </ul>
         </nav>
+        @extends('admin.auth.change-password')
+        {{-- @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif --}}

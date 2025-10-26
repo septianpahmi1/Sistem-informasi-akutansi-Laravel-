@@ -20,6 +20,7 @@
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
@@ -214,9 +215,10 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $('.delete').click(function() {
-        var dataid = $(this).attr('data-id');
-        var url = $(this).attr('url')
+    $(document).on('click', '.delete', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('url');
+
         Swal.fire({
             title: "Anda Yakin?",
             text: "Setelah dihapus, Anda tidak akan dapat memulihkan data ini!",
@@ -224,16 +226,15 @@
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Ya, hapus!"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location = "" + url + ""
-
+                window.location.href = url;
             }
-
         });
     });
 </script>
+
 <script>
     $('.status').click(function() {
         var dataid = $(this).attr('data-id');

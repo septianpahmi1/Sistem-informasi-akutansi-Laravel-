@@ -13,12 +13,12 @@
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
-                @if(Auth::user()->role == 'Admin')
-                <div class="col-sm-6">
-                    <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
-                        data-target="#mitra">Buat Mitra Baru</button>
-                </div>
-                @extends('admin.mitra.create')
+                @if (Auth::user()->role == 'Admin')
+                    <div class="col-sm-6">
+                        <button class="btn btn-success float-sm-right" type="button" data-toggle="modal"
+                            data-target="#mitra">Buat Mitra Baru</button>
+                    </div>
+                    @extends('admin.mitra.create')
                 @endif
             </div>
         </div>
@@ -39,9 +39,10 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nama</th>
+                                        <th>Dapur</th>
                                         <th>Persentasi (%)</th>
-                                        @if(Auth::user()->role == 'Admin')
-                                        <th></th>
+                                        @if (Auth::user()->role == 'Admin')
+                                            <th></th>
                                         @endif
                                     </tr>
                                 </thead>
@@ -50,21 +51,22 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->name }}</td>
+                                            <td>{{ $item->dapur->name }}</td>
                                             <td>{{ $item->percentage ?? '-' }} %</td>
-                                            @if(Auth::user()->role == 'Admin')
-                                            <td>
-                                                <div class="btn-group btn-block">
-                                                    <button type="button" class="btn btn-sm btn-warning"
-                                                        data-toggle="modal" data-target="#mitra{{ $item->id }}">
-                                                        <i class="fas fa-edit"></i>
-                                                    </button>
-                                                    <button url="{{ route('mitra.delete', $item->id) }}" type="button"
-                                                        class="btn btn-sm btn-danger delete"
-                                                        data-id="{{ $item->id }}">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            @if (Auth::user()->role == 'Admin')
+                                                <td>
+                                                    <div class="btn-group btn-block">
+                                                        <button type="button" class="btn btn-sm btn-warning"
+                                                            data-toggle="modal" data-target="#mitra{{ $item->id }}">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        <button url="{{ route('mitra.delete', $item->id) }}"
+                                                            type="button" class="btn btn-sm btn-danger delete"
+                                                            data-id="{{ $item->id }}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
                                             @endif
                                         </tr>
                                     @endforeach

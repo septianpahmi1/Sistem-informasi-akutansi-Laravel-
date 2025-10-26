@@ -12,7 +12,9 @@ class SalesController extends Controller
     {
         $title = "Faktur Penjualan";
         $data = Sales::all();
-        return view('admin.sales.index', compact('data', 'title'));
+        $dataCount = Sales::count();
+        $dataSum = Sales::sum('total');
+        return view('admin.sales.index', compact('data', 'title', 'dataCount', 'dataSum'));
     }
 
     public function create()

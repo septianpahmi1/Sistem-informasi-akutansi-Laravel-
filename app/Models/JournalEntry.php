@@ -32,4 +32,16 @@ class JournalEntry extends Model
     {
         return $this->morphTo();
     }
+
+    // public function dapur()
+    // {
+    //     return $this->hasOneThrough(
+    //         Dapur::class, // Model tujuan
+    //         Journal::class, // Model perantara
+    //         'id', // Foreign key di table `journals` ke `journal_entries`? (cek dulu)
+    //         'id', // Foreign key di table `dapur` (biasanya `id`)
+    //         'journal_id', // Foreign key di table `journal_entries`
+    //         'dapur_id' // Foreign key di table `journals`
+    //     );
+    // }
 }

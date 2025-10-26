@@ -10,8 +10,14 @@ class Journal extends Model
     protected $fillable = [
         'invoice_number',
         'date',
+        'dapur_id',
         'description',
     ];
+
+    public function dapur()
+    {
+        return $this->belongsTo(Dapur::class, 'dapur_id');
+    }
 
     public function entries()
     {

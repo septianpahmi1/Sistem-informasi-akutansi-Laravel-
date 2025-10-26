@@ -10,7 +10,7 @@
     <link href="/dist/img/logo.png" rel="icon">
     <link href="/dist/img/logo.png" rel="apple-touch-icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
 
     <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -49,10 +49,15 @@
                                     <span class="text-danger mt-3 mb-3">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-group last mb-3">
+                            <div class="form-group last mb-3 position-relative">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" required autocomplete="current-password"
-                                    class="form-control" placeholder="Your Password" minlength="8" id="password">
+                                <div class="input-group">
+                                    <input type="password" name="password" required autocomplete="current-password"
+                                        class="form-control" placeholder="Your Password" minlength="8" id="password">
+                                    <button type="button" class=" btn-sm btn-primary" id="togglePassword">
+                                        <i class="fas fa-eye" id="toggleIcon"></i>
+                                    </button>
+                                </div>
                                 @error('password')
                                     <span class="text-danger mt-3 mb-3">{{ $message }}</span>
                                 @enderror
@@ -74,13 +79,22 @@
 
 
     </div>
-
-
-
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const passwordField = document.querySelector("#password");
+        const toggleIcon = document.querySelector("#toggleIcon");
+
+        togglePassword.addEventListener("click", function() {
+            const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+            passwordField.setAttribute("type", type);
+            toggleIcon.classList.toggle("fa-eye");
+            toggleIcon.classList.toggle("fa-eye-slash");
+        });
+    </script>
 </body>
 
 </html>

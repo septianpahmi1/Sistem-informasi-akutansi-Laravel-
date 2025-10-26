@@ -12,7 +12,9 @@ class PurchaseController extends Controller
     {
         $title = "Faktur Pembelian";
         $data = Purchase::all();
-        return view('admin.purchase.index', compact('data', 'title'));
+        $dataCount = Purchase::count();
+        $dataSum = Purchase::sum('total');
+        return view('admin.purchase.index', compact('data', 'title', 'dataCount', 'dataSum'));
     }
 
     public function create()
