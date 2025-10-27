@@ -53,11 +53,12 @@ class AccountController extends Controller
             'name' => 'required',
             'type' => 'required',
         ]);
+        $totalOut = str_replace(['Rp', ' ', '.'], '', $request->opening_balance ?? 0);
         $data = Account::find($id);
         $data->code = $request->code;
         $data->name = $request->name;
         $data->type = $request->type;
-        $data->opening_balance = $request->opening_balance;
+        $data->opening_balance = $totalOut;
         $data->save();
         return redirect()->back()->with('success', 'Akun berhasil didaftarkan.');
     }

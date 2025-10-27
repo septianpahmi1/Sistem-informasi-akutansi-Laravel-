@@ -49,14 +49,23 @@ class LabarugiController extends Controller
                 'amount' => $e->type === 'debit' ? -$e->total : $e->total,
             ])->values()->toArray();
 
+        $cost = $entries->filter(fn($e) => $e->account->type === 'cost')
+            ->map(fn($e) => [
+                'name' => $e->account->name,
+                'amount' => $e->type === 'debit' ? -$e->total : $e->total,
+            ])->values()->toArray();
+
         $cogs = $entries->filter(
             fn($e) =>
-            str_contains(strtolower($e->account->name), 'pokok') ||
-                str_contains(strtolower($e->account->name), 'harga pokok')
-        )->map(fn($e) => [
-            'name' => $e->account->name,
-            'amount' => $e->type === 'debit' ? $e->total : -$e->total,
-        ])->values()->toArray();
+            $e->account->type === 'expense' && str_contains(strtolower($e->account->name), 'pokok')
+        )
+            ->map(fn($e) => [
+                'name' => $e->account->name,
+                'amount' => $e->type === 'debit' ? $e->total : -$e->total,
+            ])
+            ->values()
+            ->toArray();
+
 
         $operationalExpenses = $entries->filter(fn($e) => $e->account->type === 'expense' && !str_contains(strtolower($e->account->name), 'pokok'))
             ->map(fn($e) => [
@@ -75,11 +84,6 @@ class LabarugiController extends Controller
                 'name' => $e->account->name,
                 'amount' => $e->type === 'debit' ? $e->total : -$e->total,
             ])->values()->toArray();
-
-        $investors = investor::all();
-        if ($investors == null) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan');
-        }
         return view('admin.reports.printable.laba', [
             'companyName' => 'KOPERASI CIPTA USAHA SENTOSA',
             'companyAddress' => 'Jl. Pd. Bambu Kuning No.8, RT.3/RW.4, Bojong Baru, Kecamatan Bojonggede, Kabupaten Bogor, Jawa Barat 16920',
@@ -92,7 +96,7 @@ class LabarugiController extends Controller
             'operationalExpenses' => $operationalExpenses,
             'nonOperatingIncome'  => $nonOperatingIncome,
             'nonOperatingExpenses' => $nonOperatingExpenses,
-            'investors' => $investors,
+            'cost' => $cost,
             'title' => $title,
         ]);
     }

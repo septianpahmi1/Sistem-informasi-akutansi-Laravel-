@@ -121,7 +121,7 @@
                                                                 <div class="form-group">
                                                                     <label>Jumlah</label>
                                                                     <input type="text" name="qty[]"
-                                                                        value="{{ $entry->qty }}" maxlength="3"
+                                                                        value="{{ $entry->qty }}" maxlength="6"
                                                                         class="form-control" required>
                                                                 </div>
                                                             </div>

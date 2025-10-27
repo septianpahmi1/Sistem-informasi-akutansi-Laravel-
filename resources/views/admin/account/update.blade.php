@@ -39,6 +39,8 @@
                                         </option>
                                         <option value="income" {{ $item->type == 'income' ? 'selected' : '' }}>
                                             Penghasilan</option>
+                                        <option value="cost" {{ $item->type == 'cost' ? 'selected' : '' }}>
+                                            Harga Pokok Penjualan</option>
                                         <option value="expense" {{ $item->type == 'expense' ? 'selected' : '' }}>
                                             Beban</option>
                                     </select>
