@@ -32,9 +32,11 @@ class AccountsTableSeeder extends Seeder
             ['code' => '402', 'name' => 'Pendapatan Non Operasional', 'type' => 'income', 'opening_balance' => 0],
 
             // EXPENSE
-            ['code' => '501', 'name' => 'Beban Pokok Penjualan', 'type' => 'expense', 'opening_balance' => 0],
-            ['code' => '502', 'name' => 'Beban Operasional', 'type' => 'expense', 'opening_balance' => 0],
-            ['code' => '503', 'name' => 'Beban Non Operasional', 'type' => 'expense', 'opening_balance' => 0],
+            ['code' => '501', 'name' => 'Harga Pokok Penjualan', 'type' => 'cost', 'opening_balance' => 0],
+            // EXPENSE
+            ['code' => '601', 'name' => 'Beban Pokok Penjualan', 'type' => 'expense', 'opening_balance' => 0],
+            ['code' => '602', 'name' => 'Beban Operasional', 'type' => 'expense', 'opening_balance' => 0],
+            ['code' => '603', 'name' => 'Beban Non Operasional', 'type' => 'expense', 'opening_balance' => 0],
         ];
 
         foreach ($accounts as $account) {

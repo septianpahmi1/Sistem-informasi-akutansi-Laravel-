@@ -106,8 +106,8 @@
                                                         <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="number">Jumlah</label>
-                                                                <input type="text" name="qty[]" maxlength="3"
-                                                                    max="999" id="number" value="1"
+                                                                <input type="text" name="qty[]" maxlength="6"
+                                                                    max="999999" id="number" value="1"
                                                                     min="1" class="form-control" required />
                                                             </div>
                                                         </div>
@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('purchase') }}" type="button" class="btn btn-default">Kembali</a>
+                                <a href="{{ route('journal') }}" type="button" class="btn btn-default">Kembali</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </div>
                         </form>

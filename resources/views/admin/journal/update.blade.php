@@ -121,7 +121,7 @@
                                                                 <div class="form-group">
                                                                     <label>Jumlah</label>
                                                                     <input type="text" name="qty[]"
-                                                                        value="{{ $entry->qty }}" maxlength="3"
+                                                                        value="{{ $entry->qty }}" maxlength="6"
                                                                         class="form-control" required>
                                                                 </div>
                                                             </div>
@@ -183,7 +183,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('purchase') }}" type="button" class="btn btn-default">Kembali</a>
+                                <a href="{{ route('journal') }}" type="button" class="btn btn-default">Kembali</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </div>
                         </form>

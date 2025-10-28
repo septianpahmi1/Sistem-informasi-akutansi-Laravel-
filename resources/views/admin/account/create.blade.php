@@ -34,7 +34,8 @@
                                     <option value="liability">Kewajiban</option>
                                     <option value="equity">Ekuitas</option>
                                     <option value="income">Pendapatan</option>
-                                    <option value="expense">Beban</option>
+                                    <option value="cost">Harga Pokok Penjualan</option>
+                                    <option value="expense">Beban/Biaya</option>
                                 </select>
                             </div>
                         </div>

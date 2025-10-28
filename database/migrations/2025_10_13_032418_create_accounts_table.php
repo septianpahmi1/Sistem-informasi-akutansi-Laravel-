@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique(); // contoh: 101, 201
+            $table->string('code')->unique();
             $table->string('name');
-            $table->enum('type', ['asset', 'liability', 'equity', 'income', 'expense']);
+            $table->enum('type', ['asset', 'liability', 'equity', 'cost', 'income', 'expense']);
             $table->decimal('opening_balance', 15, 2)->default(0);
             $table->timestamps();
         });

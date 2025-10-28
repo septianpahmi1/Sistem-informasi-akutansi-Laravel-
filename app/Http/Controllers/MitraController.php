@@ -26,10 +26,10 @@ class MitraController extends Controller
 
     public function post(Request $request)
     {
-        $totalPercentage = Investor::sum('percentage') + $request->percentage;
+        $totalPercentage = Investor::where('dapur_id', $request->dapur_id)->sum('percentage') + $request->percentage;
 
         if ($totalPercentage > 100) {
-            return redirect()->back()->with('error', 'Jumlah persentase investor melebihi 100%.');
+            return redirect()->back()->with('error', 'Jumlah persentase melebihi 100%.');
         }
         investor::create([
             'name' => $request->name,
@@ -42,10 +42,10 @@ class MitraController extends Controller
 
     public function update(Request $request, $id)
     {
-        $totalPercentage = Investor::sum('percentage') + $request->percentage;
+        $totalPercentage = Investor::where('dapur_id', $request->dapur_id)->sum('percentage') + $request->percentage;
 
         if ($totalPercentage > 100) {
-            return redirect()->back()->with('error', 'Jumlah persentase investor melebihi 100%.');
+            return redirect()->back()->with('error', 'Jumlah persentase melebihi 100%.');
         }
         $data = investor::find($id);
         $data->name = $request->name;

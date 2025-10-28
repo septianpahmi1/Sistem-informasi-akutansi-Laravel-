@@ -141,7 +141,7 @@
             <tbody>
                 @foreach ($investingActivities as $item)
                     <tr>
-                        <td>{{ $item['name'] }}</td>
+                        <td>{{ $item['description'] }}</td>
                         <td class="amount">{{ rp($item['amount']) }}</td>
                     </tr>
                 @endforeach

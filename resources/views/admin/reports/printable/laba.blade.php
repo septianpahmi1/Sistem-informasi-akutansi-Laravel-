@@ -141,6 +141,7 @@
             $operationalGrouped = groupByName($operationalExpenses ?? []);
             $nonOpIncomeGrouped = groupByName($nonOperatingIncome ?? []);
             $nonOpExpenseGrouped = groupByName($nonOperatingExpenses ?? []);
+            $costGrouped = groupByName($cost ?? []);
         @endphp
 
         {{-- Pendapatan --}}
@@ -172,6 +173,20 @@
                     <tbody>
                         <tr class="subtotal">
                             <td>Jumlah Harga Pokok Penjualan</td>
+                            <td class="amount">{{ rp(array_sum($costGrouped)) }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">BEBAN POKOK PENJUALAN</div>
+                <table class="table table-noborder table-striped w-100">
+                    <tbody>
+                        <tr class="subtotal">
+                            <td>Jumlah Beban Pokok Penjualan</td>
                             <td class="amount">{{ rp(array_sum($cogsGrouped)) }}
                             </td>
                         </tr>
@@ -184,7 +199,8 @@
         @php
             $totalRevenues = collect($revenues ?? [])->sum('amount');
             $totalCogs = collect($cogs ?? [])->sum('amount');
-            $grossProfit = $totalRevenues - $totalCogs;
+            $totalCost = collect($cost ?? [])->sum('amount');
+            $grossProfit = $totalRevenues - $totalCogs - $totalCost;
         @endphp
 
         <div class="row">
