@@ -183,7 +183,7 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <a href="{{ route('purchase') }}" type="button" class="btn btn-default">Kembali</a>
+                                <a href="{{ route('journal') }}" type="button" class="btn btn-default">Kembali</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </div>
                         </form>

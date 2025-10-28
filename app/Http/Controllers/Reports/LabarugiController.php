@@ -49,10 +49,10 @@ class LabarugiController extends Controller
                 'amount' => $e->type === 'debit' ? -$e->total : $e->total,
             ])->values()->toArray();
 
-        $cost = $entries->filter(fn($e) => $e->account->type === 'cost')
+        $cost = $entries->filter(fn($e) => $e->account->type === 'cost' && str_contains(strtolower($e->account->name), 'pokok'))
             ->map(fn($e) => [
                 'name' => $e->account->name,
-                'amount' => $e->type === 'debit' ? -$e->total : $e->total,
+                'amount' => $e->type === 'debit' ? $e->total : -$e->total,
             ])->values()->toArray();
 
         $cogs = $entries->filter(

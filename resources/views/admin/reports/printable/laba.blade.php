@@ -199,7 +199,8 @@
         @php
             $totalRevenues = collect($revenues ?? [])->sum('amount');
             $totalCogs = collect($cogs ?? [])->sum('amount');
-            $grossProfit = $totalRevenues - $totalCogs;
+            $totalCost = collect($cost ?? [])->sum('amount');
+            $grossProfit = $totalRevenues - $totalCogs - $totalCost;
         @endphp
 
         <div class="row">

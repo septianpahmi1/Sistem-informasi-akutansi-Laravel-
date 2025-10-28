@@ -52,6 +52,7 @@ class AruskasController extends Controller
                     !in_array($e->account->name, ['Kas', 'Bank'])
             )
             ->map(fn($e) => [
+                'description' => $e->journal->description,
                 'name' => $e->account->name,
                 'amount' => $e->type === 'debit' ? -$e->total : $e->total,
             ])
