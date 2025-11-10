@@ -107,10 +107,7 @@
     <div class="container-fluid">
         <div class="row report-header text-center">
             <div class="col-md-12">
-                <div class="company-name">{{ $companyName ?? 'PT. Ghaleb Palindo International' }}</div>
-                <div class="mb-4">
-                    {{ $companyAddress ?? 'Jln. Hanjawar - Pacet RT.003 RW.013 Desa Sukanagalih, Kec. Cipanas, Kabupaten Cianjur' }}
-                </div>
+                <div class="company-name mb-4">{{ $companyName ?? 'PT. Ghaleb Palindo International' }}</div>
                 <div class="report-title">Laba/Rugi (Standar)</div>
                 <div class="mb-4">
                     Dari {{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }}

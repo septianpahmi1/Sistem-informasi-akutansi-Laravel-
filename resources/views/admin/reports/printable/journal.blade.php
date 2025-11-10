@@ -39,11 +39,8 @@
     <div class="container-fluid">
         <div class="row report-header text-center mb-4">
             <div class="col-md-12">
-                <div class="report-title">KOPERASI CIPTA USAHA SENTOSA</div>
-                <div class="mb-4">
-                    Jl. Pd. Bambu Kuning No.8, RT.3/RW.4, Bojong Baru, Kecamatan Bojonggede, Kabupaten Bogor, Jawa Barat
-                    16920
-                </div>
+                <div class="report-title mb-4">KOPERASI CIPTA USAHA SENTOSA</div>
+
                 <div class="report-title">Journal Umum</div>
                 <div>
                     Dari {{ \Carbon\Carbon::parse($start)->format('d M Y') ?? '-' }}
