@@ -26,7 +26,7 @@
                             <h3 class="card-title">Buat Laporan</h3>
                         </div>
                         <!-- /.card-header -->
-                        <form action="{{ route('reportDeviden.getdata') }}" target="_blank" method="get"
+                        <form action="{{ route('reportDeviden.getdata') }}" method="get"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
@@ -38,7 +38,7 @@
                                             <select name="dapur_id" id="dapur_id" class="form-control select2bs4"
                                                 style="width: 100%;" required>
                                                 <option selected disabled>Pilih Dapur</option>
-                                                @foreach ($dapur as $dapurs)
+                                                @foreach ($dapur1 as $dapurs)
                                                     <option value="{{ $dapurs->id }}">
                                                         {{ $dapurs->name }}
                                                     </option>
@@ -64,6 +64,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
+
                             </div>
                         </form>
                     </div>

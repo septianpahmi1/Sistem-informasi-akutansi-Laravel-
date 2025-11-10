@@ -93,12 +93,24 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('reports/journal-umum', [ReportsJournalController::class, 'index'])->name('reportJournal');
     Route::get('reports/journal-umum/get-data', [ReportsJournalController::class, 'getData'])->name('reportJournal.getdata');
+
     Route::get('reports/laba-rugi', [LabarugiController::class, 'index'])->name('reportLaba');
     Route::get('reports/laba-rugi/get-data', [LabarugiController::class, 'getData'])->name('reportLaba.getdata');
+    Route::get('reports/laba-rugi/get-data/print', [LabarugiController::class, 'getDataPrint'])->name('reportLaba.print');
+    Route::get('reports/laba-rugi/get-data/pdf', [LabarugiController::class, 'getDataPDF'])->name('reportLaba.pdf');
+    Route::get('reports/laba-rugi/get-data/excel', [LabarugiController::class, 'getDataExls'])->name('reportLaba.xls');
+
     Route::get('reports/arus-kas', [AruskasController::class, 'index'])->name('reportAruskas');
     Route::get('reports/arus-kas/get-data', [AruskasController::class, 'getData'])->name('reportAruskas.getdata');
+    Route::get('reports/arus-kas/get-data/print', [AruskasController::class, 'getDataPrint'])->name('reportAruskas.print');
+    Route::get('reports/arus-kas/get-data/pdf', [AruskasController::class, 'getDataPdf'])->name('reportAruskas.pdf');
+    Route::get('reports/arus-kas/get-data/excel', [AruskasController::class, 'getDataXls'])->name('reportAruskas.xls');
+
     Route::get('reports/deviden', [DevidenController::class, 'index'])->name('reportDeviden');
     Route::get('reports/deviden/get-data', [DevidenController::class, 'getData'])->name('reportDeviden.getdata');
+    Route::get('reports/deviden/get-data/print', [DevidenController::class, 'getDataPrint'])->name('reportDeviden.print');
+    Route::get('reports/deviden/get-data/pdf', [DevidenController::class, 'getDataPdf'])->name('reportDeviden.pdf');
+    Route::get('reports/deviden/get-data/excel', [DevidenController::class, 'getDataXls'])->name('reportDeviden.xls');
 });
 
 // Route::middleware('auth')->group(function () {

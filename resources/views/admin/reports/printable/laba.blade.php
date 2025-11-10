@@ -105,20 +105,7 @@
     @endphp
 
     <div class="container-fluid">
-        <div class="row report-header text-center">
-            <div class="col-md-12">
-                <div class="company-name mb-4">{{ $companyName ?? 'PT. Ghaleb Palindo International' }}</div>
-                <div class="report-title">Laba/Rugi (Standar)</div>
-                <div class="mb-4">
-                    Dari {{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }}
-                    s/d {{ \Carbon\Carbon::parse($periodEnd)->format('d M Y') ?? '-' }}
-                </div>
-                <div> Dapur : </div>
-                <div class="report-title">{{ $dapur->name }}</div>
-                <div class="float-right"> Mata Uang : {{ $currency ?? 'Indonesian Rupiah' }}
-                </div>
-            </div>
-        </div>
+
         @php
             function groupByName($items)
             {
@@ -141,6 +128,33 @@
             $costGrouped = groupByName($cost ?? []);
         @endphp
 
+        <div class="row report-header text-center">
+            <div class="col-12">
+                <table class="w-100">
+                    <tr>
+                        <td class="company-name" style="font-weight:bold;font-size:16px;text-align:center;">
+                            {{ $companyName ?? 'PT. Ghaleb Palindo International' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="report-title" style="text-align:center;">
+                            Laba/Rugi (Standar)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }} s/d
+                            {{ \Carbon\Carbon::parse($periodEnd)->format('d M Y') ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dapur : {{ $dapur->name }}</td>
+                    </tr>
+                    <tr>
+                        <td style="float: right">Mata Uang : {{ $currency ?? 'Indonesian Rupiah' }}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
         {{-- Pendapatan --}}
         <div class="row">
             <div class="col-12">
@@ -365,11 +379,6 @@
                 </div>
             </div>
         @endif --}}
-
-        <div class="mt-3 no-print">
-            <button class="btn btn-primary" onclick="window.print()">Print</button>
-            <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
-        </div>
     </div>
 
     <script>

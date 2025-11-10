@@ -1,92 +1,84 @@
-{{-- resources/views/reports/profit_loss.blade.php --}}
+{{-- resources/views/reports/cashflow_pdf.blade.php --}}
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title }} | {{ config('app.name', 'Laravel') }}</title>
-    <link href="/dist/img/logo.png" rel="icon">
-    <link href="/dist/img/logo.png" rel="apple-touch-icon">
-
-    {{-- Optional: gunakan AdminLTE / Bootstrap jika sudah ada --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
+    <title>{{ $title ?? 'Laporan Arus Kas' }}</title>
     <style>
-        /* Print friendly */
-        @media print {
-            .no-print {
-                display: none !important;
-            }
-
-            body {
-                -webkit-print-color-adjust: exact;
-            }
-        }
-
         body {
-            font-family: "Source Sans Pro", Arial, sans-serif;
-            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
             color: #222;
         }
 
+        .container {
+            width: 100%;
+            padding: 10px;
+        }
+
         .report-header {
-            margin-bottom: 1rem;
+            text-align: center;
+            margin-bottom: 15px;
             border-bottom: 2px solid #eee;
-            padding-bottom: 0.5rem;
+            padding-bottom: 5px;
         }
 
         .company-name {
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-weight: bold;
+            font-size: 16px;
         }
 
         .report-title {
-            font-size: 1.1rem;
             font-weight: 600;
+            font-size: 14px;
+            margin-top: 5px;
         }
 
         .section-title {
-            font-weight: 700;
-            margin-top: 0.8rem;
-            margin-bottom: 0.4rem;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 5px 8px;
+        }
+
+        .table-noborder td,
+        .table-noborder th {
+            border: none;
+        }
+
+        .table-striped tr:nth-child(odd) {
+            background-color: #f8f9fa;
         }
 
         .amount {
             text-align: right;
-            white-space: nowrap;
-        }
-
-        .table-noborder thead th,
-        .table-noborder tbody td {
-            border: none;
-            padding: 0.25rem .5rem;
-        }
-
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, .02);
         }
 
         .subtotal {
-            font-weight: 700;
+            font-weight: bold;
             border-top: 1px dashed #ccc;
         }
 
         .negative {
             color: #c0392b;
         }
-
-        .printed-info {
-            font-size: 12px;
-            color: #666;
-            margin-top: 1rem;
-        }
     </style>
 </head>
 
 <body>
     @php
-        // Helper singkat untuk format rupiah — ganti dengan helper global jika ada
         function rp($value)
         {
             if ($value === null) {
@@ -96,42 +88,20 @@
             $abs = abs((int) $value);
             return $neg . 'Rp ' . number_format($abs, 0, ',', '.');
         }
-
-        // Contoh fallback variabel jika belum dikirim (bisa dihapus)
-        // $companyName = $companyName ?? 'PT. Ghaleb Palindo International';
-        // $periodStart = $periodStart ?? now()->startOfMonth()->format('d M Y');
-        // $periodEnd = $periodEnd ?? now()->format('d M Y');
-
     @endphp
 
-    <div class="container-fluid">
-        <div class="row report-header text-center">
-            <div class="col-12">
-                <table class="w-100">
-                    <tr>
-                        <td class="company-name" style="font-weight:bold;font-size:16px;text-align:center;">
-                            KOPERASI CIPTA USAHA SENTOSA
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="report-title" style="text-align:center;">
-                            Arus Kas
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }} s/d
-                            {{ \Carbon\Carbon::parse($periodEnd)->format('d M Y') ?? '-' }}</td>
-                    </tr>
-                    <tr>
-                        <td>Dapur : {{ $dapur->name }}</td>
-                    </tr>
-                    <tr>
-                        <td style="float: right">Mata Uang : Indonesian Rupiah</td>
-                    </tr>
-                </table>
-
-            </div>
+    <div class="container">
+        {{-- Header --}}
+        <div class="report-header">
+            <div class="company-name">KOPERASI CIPTA USAHA SENTOSA</div>
+            <div class="report-title">Arus Kas</div>
+            <div>{{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }} s/d
+                {{ \Carbon\Carbon::parse($periodEnd)->format('d M Y') ?? '-' }}</div>
+            <div>Dapur: {{ $dapur->name ?? '-' }}</div>
+            <div style="text-align:right;">Mata Uang: Indonesian Rupiah</div>
         </div>
+
+        {{-- Aktivitas Operasi --}}
         <div class="section-title">Cashflow dari Aktivitas Operasi</div>
         <table class="table table-noborder table-striped">
             <tbody>
@@ -184,7 +154,7 @@
 
         {{-- Total Cashflow --}}
         <div class="section-title">Perubahan Kas Bersih</div>
-        <table class="table table-noborder w-100">
+        <table class="table table-noborder">
             <tbody>
                 <tr class="subtotal">
                     <td>Total Perubahan Kas Bersih</td>
@@ -193,12 +163,6 @@
             </tbody>
         </table>
     </div>
-
-    <script>
-        window.addEventListener("load", function() {
-            window.print();
-        });
-    </script>
 </body>
 
 </html>

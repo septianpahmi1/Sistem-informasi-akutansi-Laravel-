@@ -1,5 +1,5 @@
 <aside class="main-sidebar bg-white elevation-2">
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route('dashboard') }}" class="brand-link">
         <img src="dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle " style="opacity: .8">
         <span class="brand-text font-weight-bold"><strong>SIA</strong>kuntansi</span>
     </a>

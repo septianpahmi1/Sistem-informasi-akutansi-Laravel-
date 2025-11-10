@@ -153,20 +153,31 @@
     <div class="container-fluid">
         <div class="row report-header text-center">
             <div class="col-md-12">
-                <div class="company-name mb-4">{{ $companyName ?? 'PT. Ghaleb Palindo International' }}</div>
-                
-                <div class="report-title">Pembagian Deviden</div>
-                <div class="mb-4">
-                    Dari {{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }}
-                    s/d {{ \Carbon\Carbon::parse($periodEnd)->format('d M Y') ?? '-' }}
-                </div>
-                <div> Dapur : </div>
-                <div class="report-title">{{ $dapur->name }}</div>
-                <div class="float-left"> LABA BERSIH : <strong class="{{ $netProfit < 0 ? 'negative' : '' }}">
-                        {{ rp($netProfit) }}</strong>
-                </div>
-                <div class="float-right"> Mata Uang : {{ $currency ?? 'Indonesian Rupiah' }}
-                </div>
+                <table class="w-100">
+                    <tr>
+                        <td class="company-name" style="font-weight:bold;font-size:16px;text-align:center;">
+                            {{ $companyName ?? 'PT. Ghaleb Palindo International' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="report-title" style="text-align:center;">
+                            Pembagian Deviden
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ \Carbon\Carbon::parse($periodStart)->format('d M Y') ?? '-' }} s/d
+                            {{ \Carbon\Carbon::parse($periodEnd)->format('d M Y') ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <td>Dapur : {{ $dapur->name }}</td>
+                    </tr>
+                    <tr>
+                        <td style="float: left">LABA BERSIH : <strong class="{{ $netProfit < 0 ? 'negative' : '' }}">
+                                {{ rp($netProfit) }}</strong></td>
+                        <td style="float: right">Mata Uang : {{ $currency ?? 'Indonesian Rupiah' }}</td>
+                    </tr>
+                </table>
+
             </div>
         </div>
 
@@ -201,11 +212,6 @@
                 </div>
             </div>
         @endif
-
-        <div class="mt-3 no-print">
-            <button class="btn btn-primary" onclick="window.print()">Print</button>
-            <a href="{{ url()->previous() }}" class="btn btn-secondary">Kembali</a>
-        </div>
     </div>
 
     <script>
